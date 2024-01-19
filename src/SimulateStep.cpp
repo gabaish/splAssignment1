@@ -68,6 +68,8 @@ void SimulateStep::act(WareHouse& warehouse) {
         }
   
     }
+    this->complete();
+    warehouse.addAction(this);
 
     //override? 
 }
