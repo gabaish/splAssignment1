@@ -6,6 +6,7 @@
 #include <unordered_map>
 #include <functional>
 #include <iterator>
+#include <algorithm>
 
 
 WareHouse::WareHouse(const string &configFilePath){
@@ -219,6 +220,14 @@ Order &WareHouse::getOrder(int orderId) const{
     //see what shay is expecting in case null
 }
 
+const vector<Volunteer*>& WareHouse:: getVolunteers() const{
+    return this->volunteers;
+}
+
+const vector<Order*>& WareHouse::getPendingOrders() const{
+    return this->pendingOrders;
+}
+
 
 void WareHouse::close() 
 {
@@ -278,6 +287,46 @@ void WareHouse::addVolunteer(string volunteer_name, string volunteerRole, istrin
     volunteerCounter++;
 
 
+}
+
+void WareHouse::moveOrderFromPendingToInProcess(Order* order){
+    // maybe it should get const ref? and not pinter..? but its a vector of pointers
+    // remove the order from pendingOrders
+    auto it = std::remove(this->pendingOrders.begin(), this->pendingOrders.end(), order);
+    this->pendingOrders.erase(it, pendingOrders.end());
+    // I really really hope it works - its from chatGPT
+
+    // add the order to inProcessOrders
+    this->inProcessOrders.push_back(order);
+
+}
+
+void WareHouse::moveOrderFromInProcessToPending(Order* order){
+    // maybe it should get const ref? and not pinter..? but its a vector of pointers
+    // remove the order from pendingOrders
+    auto it = std::remove(this->inProcessOrders.begin(), this->inProcessOrders.end(), order);
+    this->inProcessOrders.erase(it, inProcessOrders.end());
+    // I really really hope it works - its from chatGPT
+
+    // add the order to inProcessOrders
+    this->pendingOrders.push_back(order);
+
+}
+void WareHouse::moveOrderFromInProcessToCompleted(Order* order){
+    // maybe it should get const ref? and not pinter..? but its a vector of pointers
+    // remove the order from pendingOrders
+    auto it = std::remove(this->inProcessOrders.begin(), this->inProcessOrders.end(), order);
+    this->inProcessOrders.erase(it, inProcessOrders.end());
+    // I really really hope it works - its from chatGPT
+
+    // add the order to inProcessOrders
+    this->completedOrders.push_back(order);
+
+}
+
+void WareHouse::removeVolunteer(Volunteer* volunteer){
+    auto it = std::remove(this->volunteers.begin(), this->volunteers.end(), volunteer);
+    this->volunteers.erase(it, volunteers.end());
 }
 
 int WareHouse::getCustomerCounter() const{

@@ -30,7 +30,16 @@ AddOrder* AddOrder:: clone() const{
 }
 
 std::string AddOrder:: toString() const{
-    //implement once it's more clear what we want to print 
+    string returnString = "order ";
+    returnString.append(std::to_string(this->customerId));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+    if(this->getStatus() ==  ActionStatus::ERROR){
+        returnString.append(" ");
+        returnString.append(this->getErrorMsg());
+    }
+
+    return returnString;
 
     // override?
 }

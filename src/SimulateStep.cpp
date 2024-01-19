@@ -5,25 +5,23 @@ numOfSteps(numOfSteps){}
 
 void SimulateStep::act(WareHouse& warehouse) {
     for (int i = 0; i < this->numOfSteps; ++i) {
-        //first step in the schema - move orders from pendingOrders to relevant volunteer
-        for(const Order* order : warehouse.getPendingOrders()){
+        //first step in the schema - move orders from pendingOrders to relevant volunteers
+        for(Order* order : warehouse.getPendingOrders()){
             if(order->getStatus()==OrderStatus::PENDING){
                 // looking for an available collector
                 for(Volunteer* volunteer : warehouse.getVolunteers()) {
-                    if(volunteer->getType()== VolunteerType::Collector && volunteer->canTakeOrder(*order)){
+                    if(volunteer->getVolunteerType()== VolunteerType::Collector && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
-                        warehouse.removePendingOrder(*order);
-                        warehouse.addInProcessOrder(*order);
+                        warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
                 }       
             } else if (order->getStatus()==OrderStatus::COLLECTING){
                 // looking for an available driver
                 for(Volunteer* volunteer : warehouse.getVolunteers()){
-                    if(volunteer->getType()== VolunteerType::Driver && volunteer->canTakeOrder(*order)){
+                    if(volunteer->getVolunteerType()== VolunteerType::Driver && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
-                        warehouse.removePendingOrder(*order);
-                        warehouse.addInProcessOrder(*order);
+                        warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
                 }
@@ -41,16 +39,16 @@ void SimulateStep::act(WareHouse& warehouse) {
                 // if after the step the volunteer is done processing - the activeOrderId shold be NO_ORDER
                 if(volunteer->getActiveOrderId()==NO_ORDER){
                     // collectors should push their order to pendingOrders
-                    if(volunteer->getType()==VolunteerType::Collector){
+                    if(volunteer->getVolunteerType()==VolunteerType::Collector){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
-                        warehouse.removeInProcessOrder(orderToAdd);
-                        warehouse.addPendingOrder(orderToAdd);
+                        // type &orderToAdd - not sure about it memory-wise
+                        warehouse.moveOrderFromInProcessToPending(&orderToAdd);
                     }
                     // drivers should push their order to completedOrders
-                    if(volunteer->getType()==VolunteerType::Driver){
+                    if(volunteer->getVolunteerType()==VolunteerType::Driver){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
-                        warehouse.removeInProcessOrder(orderToAdd);
-                        warehouse.addCompletedOrder(orderToAdd);
+                        // type &orderToAdd - not sure about it memory-wise
+                        warehouse.moveOrderFromInProcessToCompleted(&orderToAdd);
                     }
                 }
             }
@@ -59,12 +57,10 @@ void SimulateStep::act(WareHouse& warehouse) {
         // fourth step in the schema - delete volunteers that had maxed out and finished their last order
         for(Volunteer* volunteer : warehouse.getVolunteers()){
             if(!(volunteer->hasOrdersLeft()) && volunteer->getActiveOrderId()==NO_ORDER){
-                Volunteer* currentVolunteer = volunteer;
-                warehouse.removeVolunteer(*volunteer);
+                warehouse.removeVolunteer(volunteer);
 
-                delete currentVolunteer;
+                delete volunteer;
 
-                //should have I made this copy currentVolunteer ?
                 //it this how we delete memory in c++ ? 
 
             }
@@ -77,7 +73,16 @@ void SimulateStep::act(WareHouse& warehouse) {
 }
 
 std::string SimulateStep:: toString() const{
-    //implement once it's more clear what we want to print 
+    string returnString = "step ";
+    returnString.append(std::to_string(this->numOfSteps));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+    if(this->getStatus() ==  ActionStatus::ERROR){
+        returnString.append(" ");
+        returnString.append(this->getErrorMsg());
+    }
+
+    return returnString;
 
     // override?
 }

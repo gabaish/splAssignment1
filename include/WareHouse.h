@@ -26,10 +26,16 @@ class WareHouse {
         Customer &getCustomer(int customerId) const;
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;
+        const vector<Volunteer*>& getVolunteers() const;
+        const vector<Order*>& getPendingOrders() const;
         void close();
         void open();
         void addCustomer(Customer* customer);
         void addVolunteer(string volunteer_name, string volunteerRole, istringstream iss);
+        void moveOrderFromPendingToInProcess(Order* order);
+        void moveOrderFromInProcessToPending(Order* order);
+        void moveOrderFromInProcessToCompleted(Order* order);
+        void removeVolunteer(Volunteer* volunteer);
         int getCustomerCounter() const;
         int getVolunteerCounter() const;
         int getOrderCounter() const;
