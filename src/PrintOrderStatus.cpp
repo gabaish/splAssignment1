@@ -34,7 +34,16 @@ PrintOrderStatus* PrintOrderStatus:: clone() const{
 }
 
 std::string PrintOrderStatus:: toString() const{
-    //implement once it's more clear what we want to print 
+    string returnString = "orderStatus ";
+    returnString.append(std::to_string(this->orderId));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+    if(this->getStatus() ==  ActionStatus::ERROR){
+        returnString.append(" ");
+        returnString.append(this->getErrorMsg());
+    }
+
+    return returnString;
 
     // override?
 }

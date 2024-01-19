@@ -25,3 +25,11 @@ void BaseAction::error(string errorMsg){
 string BaseAction:: getErrorMsg() const{
     return this->errorMsg;
 }
+
+string BaseAction::getStatusString() const {
+    switch (this->status) {
+        case ActionStatus::COMPLETED: return "COMPLETED";
+        case ActionStatus::ERROR: return "ERROR";
+    }
+    return "Unknown";
+}
