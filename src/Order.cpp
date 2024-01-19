@@ -42,7 +42,13 @@ OrderStatus Order::getStatus() const{
 }
 
 const string Order:: toString() const{
-    // will implement once I understand what we should print
+    string returnString = (std::to_string(this->id));
+    returnString.append(" ");
+    returnString.append(std::to_string(this->customerId));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+
+    return returnString;
 }
 
 int Order::getDistance() const{
@@ -64,11 +70,3 @@ string Order:: getStatusString() const {
     
 
 }
-
-
-// enum class OrderStatus {
-//     PENDING,
-//     COLLECTING,
-//     DELIVERING,
-//     COMPLETED,
-// };

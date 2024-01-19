@@ -161,6 +161,8 @@ void WareHouse::start()
         }
     }
 
+    delete this;
+
 }
 
 //need to change the method name to getActions()
@@ -232,16 +234,16 @@ const vector<Order*>& WareHouse::getPendingOrders() const{
 void WareHouse::close() 
 {
     for(const auto& pending_order : pendingOrders)
-        cout<< pending_order << endl;
+        cout<< pending_order->toString() << endl;
     for(const auto& inProcess_order : inProcessOrders)
-        cout<< inProcess_order << endl;
+        cout<< inProcess_order->toString() << endl;
     for(const auto& completed_order : completedOrders)
-        cout<< completed_order << endl;
+        cout<< completed_order->toString() << endl;
     
     isOpen=false;
 
     //add rule of 5
-    //free memory
+    //free memory - Implemented when going out of the loop of start
     //should i print something in the end?
 }
 
