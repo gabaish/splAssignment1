@@ -48,3 +48,27 @@ const string Order:: toString() const{
 int Order::getDistance() const{
     return this->distance;
 }
+
+string Order:: getStatusString() const {
+    string returnString = "";
+    switch(this->status){
+        case(OrderStatus::PENDING):
+            return "PENDING";    
+        case(OrderStatus::COLLECTING):
+            return "COLLECTING"; 
+        case(OrderStatus::DELIVERING):
+            return "DELIVERING";    
+        case(OrderStatus::COMPLETED):
+            return "COMPLETED"; 
+    }
+    
+
+}
+
+
+// enum class OrderStatus {
+//     PENDING,
+//     COLLECTING,
+//     DELIVERING,
+//     COMPLETED,
+// };
