@@ -25,3 +25,10 @@ string Close:: toString() const{
 
     // override?
 }
+
+Close* Close:: clone() const{
+    return new Close(*this);
+
+    // is this the way? 
+    // override? 
+}
