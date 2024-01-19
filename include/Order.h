@@ -32,6 +32,7 @@ class Order {
         const string toString() const;
         int getDistance() const;
         string getStatusString() const;
+        Order* clone() const;
 
     private:
         const int id;
