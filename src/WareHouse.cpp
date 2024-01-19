@@ -142,19 +142,19 @@ void WareHouse::start()
                 printVolunteerStatus.act(*this);
             }
             else if(action=="log"){
-                PrintActionsLog printActionsLogs();
+                PrintActionsLog printActionsLogs;
                 printActionsLogs.act(*this);
             }
             else if(action=="close"){
-                Close close();
+                Close close;
                 close.act(*this);
             }
             else if(action=="backup"){
-                BackupWareHouse BackupWareHouse();
+                BackupWareHouse BackupWareHouse;
                 BackupWareHouse.act(*this);
             }
             else if(action=="restore"){
-                RestoreWareHouse RestoreWareHouse();
+                RestoreWareHouse RestoreWareHouse;
                 RestoreWareHouse.act(*this);
             }
 
@@ -460,11 +460,11 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
         this ->customers.clear();
         // add other customers:
         for(int i=0;i<=other.customers.size();i++)
-            this ->customers.push_back(other.completedOrders.at(i)->clone());        }
+            this ->customers.push_back(other.customers.at(i)->clone());        
 
         this->customerCounter=other.customerCounter;
         this ->volunteerCounter=other.volunteerCounter;
-    
+    }
     return *this;
 }
 
