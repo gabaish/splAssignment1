@@ -3,8 +3,6 @@
 
 PrintCustomerStatus::PrintCustomerStatus(int customerId) : customerId(customerId){}
 
-
-//verify if we need to add log to actions log
 void PrintCustomerStatus::act(WareHouse &wareHouse) {
     if(customerId>=0 && customerId<= wareHouse.getCustomerCounter()){
         cout << "CustomerID: " << customerId << endl;
@@ -16,8 +14,7 @@ void PrintCustomerStatus::act(WareHouse &wareHouse) {
         for(int order_id : orders){
             Order& current_order=wareHouse.getOrder(order_id);
             cout << "OrderID: " << order_id << endl;
-            //FIX!!!
-            //cout << "OrderStatus: " << current_order.getStatus() << endl;
+            cout << "OrderStatus: " << current_order.getStatusString() << endl;
         }
         //printing the customer sum of orders left:
         cout << "numOrdersLeft: " << current_cutomer.getMaxOrders()-current_cutomer.getNumOrders() << endl;
@@ -39,6 +36,17 @@ PrintCustomerStatus *PrintCustomerStatus::clone() const{
 }
 
 string PrintCustomerStatus::toString() const{
-    //WHAT TO DO IN HERE??
+    string returnString = "volunteerStatus ";
+    returnString.append(std::to_string(this->customerId));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+    if(this->getStatus() ==  ActionStatus::ERROR){
+        returnString.append(" ");
+        returnString.append(this->getErrorMsg());
+    }
+
+    return returnString;
+
+    // override?
 }
 

@@ -32,7 +32,29 @@ AddCustomer *AddCustomer::clone() const{
 }
 
 string AddCustomer::toString() const{
-    //What to do in here?
+    string type;
+    if(this->customerType == CustomerType::Civilian)
+        type="civilian";
+    else if(this->customerType == CustomerType::Soldier)
+        type="soldier";
+    string returnString = "customer ";
+    returnString.append(this->customerName);
+    returnString.append(" ");
+    returnString.append(type);
+    returnString.append(" ");
+    returnString.append(std::to_string(this->distance));
+    returnString.append(" ");
+    returnString.append(std::to_string(this->maxOrders));
+    returnString.append(" ");
+    returnString.append(this->getStatusString());
+    if(this->getStatus() ==  ActionStatus::ERROR){
+        returnString.append(" ");
+        returnString.append(this->getErrorMsg());
+    }
+
+    return returnString;
+
+    // override?
 }
 
     
