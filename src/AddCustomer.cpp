@@ -1,5 +1,7 @@
 #include "../include/BaseAction.h"
 
+
+//do we need to verify the input is correct? 
 AddCustomer::AddCustomer(string customerName, string customerType, int distance, int maxOrders):
 customerName(customerName),distance(distance),maxOrders(maxOrders),
     customerType(){
@@ -21,8 +23,17 @@ void AddCustomer::act(WareHouse &wareHouse){
     }
 
     wareHouse.addCustomer(new_customer);
+    wareHouse.addAction(this);
+
 }
 
+AddCustomer *AddCustomer::clone() const{
+    return new AddCustomer(*this);
+}
+
+string AddCustomer::toString() const{
+    //What to do in here?
+}
 
     
 

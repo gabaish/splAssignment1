@@ -1,10 +1,12 @@
 #include "../include/WareHouse.h"
+#include "../include/BaseAction.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
 #include <unordered_map>
 #include <functional>
 #include <iterator>
+
 
 WareHouse::WareHouse(const string &configFilePath){
     
@@ -19,6 +21,9 @@ WareHouse::WareHouse(const string &configFilePath){
     int volunteerCounter=0; //For assigning unique volunteer IDs
     int orderCounter=0;
     
+    //adding default volunteer with id=-1  to volunteers:
+    Volunteer* default_volunteer = new CollectorVolunteer(-1, "default",0);
+    volunteers.push_back(default_volunteer);
     
     
     //do we need to add each action to the action log?
@@ -39,8 +44,7 @@ WareHouse::WareHouse(const string &configFilePath){
                 string customer_name, customer_type;
                 int customer_distance, max_orders;
                 iss >> customer_name >> customer_type >> customer_distance >> max_orders;
-                AddCustomer AddCustomer(customer_name,customer_type,customer_distance,max_orders);
-                AddCustomer.act(*this);
+                addCustomerConfig(customer_name,customer_type,customer_distance,max_orders);
             }       
 
 
@@ -207,6 +211,8 @@ Volunteer &WareHouse::getVolunteer(int volunteerId) const{
             return *volunteer;
         }
     }
+    //returning the default volunteer:
+    return getVolunteer(-1);
 }
 //inside the print order status
 Order &WareHouse::getOrder(int orderId) const{
@@ -281,6 +287,11 @@ int WareHouse::getCustomerCounter() const{
 int WareHouse::getVolunteerCounter() const{
     return this->volunteerCounter;
 }
+
+int WareHouse::getOrderCounter() const{
+    return this->orderCounter;
+}
+
 //check if need to delete something else
 WareHouse:: ~WareHouse() {
     for(BaseAction* action: actionsLog){
@@ -316,11 +327,11 @@ WareHouse::WareHouse(const WareHouse& other){
     }
     //clone all pending orders:
     for(const Order* pendingOrder : other.pendingOrders){
-        this ->pendingOrders.push_back(pending_order->clone());
+        this ->pendingOrders.push_back(pendingOrder->clone());
     }
     //clone all inProcess orders:
     for(const Order* inProcessOrder : other.inProcessOrders){
-        this ->inProcessOrders.push_back(pending_order->clone());
+        this ->inProcessOrders.push_back(inProcessOrder->clone());
     }
     //clone all completed orders:
     for(const Order* completedOrder : other.completedOrders){
@@ -402,6 +413,8 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
 
         this->customerCounter=other.customerCounter;
         this ->volunteerCounter=other.volunteerCounter;
+    
+    return *this;
 }
 
 
@@ -409,7 +422,7 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
 WareHouse::WareHouse(WareHouse &&other) noexcept : isOpen(other.isOpen), actionsLog(std::move(other.actionsLog)), volunteers(std::move(other.volunteers)), pendingOrders(std::move(other.pendingOrders)), inProcessOrders(std::move(other.inProcessOrders)), completedOrders(std::move(other.completedOrders)),customers(std::move(other.customers)), customerCounter(other.customerCounter), volunteerCounter(other.volunteerCounter), orderCounter(other.orderCounter){
     
     //do we need to nullptr this?
-    other.isOpen=flase;
+    other.isOpen=false;
     other.customerCounter=0;
     other.volunteerCounter=0;
     other.orderCounter=0;
@@ -418,12 +431,75 @@ WareHouse::WareHouse(WareHouse &&other) noexcept : isOpen(other.isOpen), actions
 }
 
 
+//move assignment constructor:
+WareHouse& WareHouse::operator=(WareHouse &&other){
+    if(this != &other){
+        //delete old actionLogs:
+        for(int i=0;i<=this->actionsLog.size();i++)
+            delete this ->actionsLog.at(i);
+        //clear old actions logs addresses:
+        this ->actionsLog.clear();
+        
+        //delete old volunteers:
+        for(int i=0;i<=this->volunteers.size();i++)
+            delete this ->volunteers.at(i);
+        //clear old volunteers addresses:
+        this ->volunteers.clear();
+        
+        //delete old pendingOrders:
+        for(int i=0;i<=this->pendingOrders.size();i++)
+            delete this ->pendingOrders.at(i);
+        //clear old pendingOrders addresses:
+        this ->pendingOrders.clear();
+       
+        //delete old inProcessOrders:
+        for(int i=0;i<=this->inProcessOrders.size();i++)
+            delete this ->inProcessOrders.at(i);
+        //clear old inProcessOrders addresses:
+        this ->inProcessOrders.clear();
 
-//TODO move constructor and move assignment constructor
+        //delete old completedOrders:
+        for(int i=0;i<=this->completedOrders.size();i++)
+            delete this ->completedOrders.at(i);
+        //clear old completedOrders addresses:
+        this ->completedOrders.clear();
 
+        //delete old customers:
+        for(int i=0;i<=this->customers.size();i++)
+            delete this ->customers.at(i);
+        //clear old customers addresses:
+        this ->customers.clear();
+       
+       //move the resources from  other to this:
+       isOpen=other.isOpen;
+       actionsLog = std::move(other.actionsLog);
+       volunteers = std::move(other.volunteers);
+       pendingOrders = std::move(other.pendingOrders);
+       inProcessOrders = std::move(other.inProcessOrders);
+       completedOrders = std::move(other.completedOrders);
+       customers = std::move(other.customers);
+       customerCounter = other.customerCounter;
+       volunteerCounter = other.volunteerCounter;
+       orderCounter = other.orderCounter;
 
+       //setting the other's to valid state:
+       other.isOpen=false;
+       other.customerCounter=0;
+        other.volunteerCounter=0;
+        other.orderCounter=0;
+       
+    }
+    return *this;
+}
 
-
-
-
+void WareHouse::addCustomerConfig(string customerName, string customerType, int distance, int maxOrders){
+    Customer* new_customer=nullptr;
+    if(customerType=="soldier"){
+        new_customer=new SoldierCustomer(customerCounter,customerName,distance,maxOrders);
+    }
+    else if(customerType=="civilian"){
+        new_customer=new CivilianCustomer(customerCounter,customerName,distance,maxOrders);
+    }
+    addCustomer(new_customer);
+}
 

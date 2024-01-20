@@ -2,6 +2,7 @@
 
 CollectorVolunteer::CollectorVolunteer(int id, string name, int coolDown):
 Volunteer(id,name),coolDown(coolDown),timeLeft(0){
+    volunteerType=VolunteerType::Collector;
     // I initialized timeLeft (time left for the volunteer to finish its current order) to 0,
     // not sure it's important(i will override it) but just to make sure its ok
 }

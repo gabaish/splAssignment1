@@ -7,6 +7,11 @@ using std::vector;
 
 #define NO_ORDER -1
 
+enum class VolunteerType{
+    Collector, LimitedCollector, Driver, LimitedDriver, Volunteer
+};
+
+
 class Volunteer {
     public:
         Volunteer(int id, const string &name);
@@ -27,7 +32,8 @@ class Volunteer {
     protected:
         int completedOrderId; //Initialized to NO_ORDER if no order has been completed yet
         int activeOrderId; //Initialized to NO_ORDER if no order is being processed
-    
+        VolunteerType volunteerType;
+
     private:
         const int id;
         const string name;

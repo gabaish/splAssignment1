@@ -2,6 +2,7 @@
 
 DriverVolunteer::DriverVolunteer(int id, string name, int maxDistance, int distancePerStep):
 Volunteer(id,name),maxDistance(maxDistance),distancePerStep(distancePerStep),distanceLeft(0){
+    volunteerType=VolunteerType::Driver;
     // I initialized distanceLeft (time left for the volunteer to finish its current order) to 0,
     // not sure it's important(i will override it) but just to make sure its ok
 }

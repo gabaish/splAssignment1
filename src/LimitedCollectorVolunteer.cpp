@@ -2,6 +2,7 @@
 
 LimitedCollectorVolunteer:: LimitedCollectorVolunteer(int id, string name, int coolDown ,int maxOrders):
 CollectorVolunteer(id,name,coolDown),maxOrders(maxOrders),ordersLeft(maxOrders){
+    volunteerType=VolunteerType::LimitedCollector;
     //orders left is initialsized to maxorders and I am planning to 
     //decrease it by one for any order made
 }

@@ -2,6 +2,7 @@
 
 LimitedDriverVolunteer::LimitedDriverVolunteer(int id, const string &name, int maxDistance, int distancePerStep,int maxOrders):
 DriverVolunteer(id,name,maxDistance,distancePerStep),maxOrders(maxOrders),ordersLeft(maxOrders){
+    volunteerType=VolunteerType::LimitedDriver;
     //orders left is initialsized to maxorders and I am planning to 
     //decrease it by one for any order made
 }

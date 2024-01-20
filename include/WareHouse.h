@@ -32,11 +32,13 @@ class WareHouse {
         void addVolunteer(string volunteer_name, string volunteerRole, istringstream iss);
         int getCustomerCounter() const;
         int getVolunteerCounter() const;
+        int getOrderCounter() const;
         ~WareHouse();
         WareHouse(const WareHouse &other);
         WareHouse &operator=(const WareHouse &other);
         WareHouse(WareHouse &&other);
         WareHouse &operator=(WareHouse &&other);
+        void addCustomerConfig(string customerName, string customerType, int distance, int maxOrders);
 
 
 
