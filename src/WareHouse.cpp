@@ -405,6 +405,20 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
 }
 
 
+//move constructor:
+WareHouse::WareHouse(WareHouse &&other) noexcept : isOpen(other.isOpen), actionsLog(std::move(other.actionsLog)), volunteers(std::move(other.volunteers)), pendingOrders(std::move(other.pendingOrders)), inProcessOrders(std::move(other.inProcessOrders)), completedOrders(std::move(other.completedOrders)),customers(std::move(other.customers)), customerCounter(other.customerCounter), volunteerCounter(other.volunteerCounter), orderCounter(other.orderCounter){
+    
+    //do we need to nullptr this?
+    other.isOpen=flase;
+    other.customerCounter=0;
+    other.volunteerCounter=0;
+    other.orderCounter=0;
+
+    //do we need to delete the vectors?
+}
+
+
+
 //TODO move constructor and move assignment constructor
 
 

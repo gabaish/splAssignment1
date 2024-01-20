@@ -6,6 +6,7 @@ using namespace std;
 #include "Order.h"
 #include "Customer.h"
 #include "Volunteer.h"
+#include "BaseAction.h"
 
 class BaseAction;
 class Volunteer;
@@ -27,6 +28,17 @@ class WareHouse {
         Order &getOrder(int orderId) const;
         void close();
         void open();
+        void addCustomer(Customer* customer);
+        void addVolunteer(string volunteer_name, string volunteerRole, istringstream iss);
+        int getCustomerCounter() const;
+        int getVolunteerCounter() const;
+        ~WareHouse();
+        WareHouse(const WareHouse &other);
+        WareHouse &operator=(const WareHouse &other);
+        WareHouse(WareHouse &&other);
+        WareHouse &operator=(WareHouse &&other);
+
+
 
     private:
         bool isOpen;
@@ -38,4 +50,5 @@ class WareHouse {
         vector<Customer*> customers;
         int customerCounter; //For assigning unique customer IDs
         int volunteerCounter; //For assigning unique volunteer IDs
+        int orderCounter;
 };
