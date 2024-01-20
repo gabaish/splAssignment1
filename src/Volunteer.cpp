@@ -25,3 +25,7 @@ bool Volunteer::isBusy() const{
     return(!this->activeOrderId==NO_ORDER);
     // if the activeOrderId is NO_ORDER - the volunteer is not busy
 }
+
+VolunteerType Volunteer::getVolunteerType() const{
+    return this->volunteerType;
+}
