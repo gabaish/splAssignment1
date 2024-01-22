@@ -218,17 +218,13 @@ void WareHouse::close()
     
     isOpen=false;
 
-    //add rule of 5
     //free memory - Implemented when going out of the loop of start
-    //should i print something in the end?
 }
 
-//shoud i add something ekse?
 void WareHouse::open(){
     isOpen=true;
 } 
 
-//should i add log?
 void WareHouse::addCustomer(Customer* customer){
     customers.push_back(customer);
     customerCounter++;
@@ -318,6 +314,7 @@ int WareHouse::getOrderCounter() const{
     return this->orderCounter;
 }
 
+// destructor
 //check if need to delete something else
 WareHouse:: ~WareHouse() {
     for(BaseAction* action: actionsLog){

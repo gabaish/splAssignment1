@@ -11,6 +11,7 @@ void BackupWareHouse:: act(WareHouse &wareHouse){
         backup=nullptr;
     }
 
+    // use the copy operator instead? 
     //copying the current warehouse:
     backup=new WareHouse(wareHouse);   
 
