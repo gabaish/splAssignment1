@@ -28,3 +28,5 @@ std::string PrintActionsLog:: toString() const{
     return returnString;
 
 }
+
+PrintActionsLog:: ~PrintActionsLog() = default;

@@ -24,6 +24,7 @@ class BaseAction{
         virtual string toString() const=0;
         virtual BaseAction* clone() const=0;
         string getStatusString() const;
+        virtual ~BaseAction();
 
     protected:
         void complete();
@@ -42,6 +43,7 @@ class SimulateStep : public BaseAction {
         void act(WareHouse &wareHouse) override;
         std::string toString() const override;
         SimulateStep *clone() const override;
+        virtual ~SimulateStep() override;
 
     private:
         const int numOfSteps;
@@ -53,6 +55,7 @@ class AddOrder : public BaseAction {
         void act(WareHouse &wareHouse) override;
         AddOrder *clone() const override;
         string toString() const override;
+        virtual ~AddOrder() override;
     private:
         const int customerId;
 };
@@ -64,6 +67,7 @@ class AddCustomer : public BaseAction {
         void act(WareHouse &wareHouse) override;
         AddCustomer *clone() const override;
         string toString() const override;
+        virtual ~AddCustomer() override;
     private:
         const string customerName;
         const CustomerType customerType;
@@ -79,6 +83,7 @@ class PrintOrderStatus : public BaseAction {
         void act(WareHouse &wareHouse) override;
         PrintOrderStatus *clone() const override;
         string toString() const override;
+        virtual ~PrintOrderStatus() override;
     private:
         const int orderId;
 };
@@ -89,6 +94,7 @@ class PrintCustomerStatus: public BaseAction {
         void act(WareHouse &wareHouse) override;
         PrintCustomerStatus *clone() const override;
         string toString() const override;
+        virtual ~PrintCustomerStatus() override;
     private:
         const int customerId;
 };
@@ -100,6 +106,7 @@ class PrintVolunteerStatus : public BaseAction {
         void act(WareHouse &wareHouse) override;
         PrintVolunteerStatus *clone() const override;
         string toString() const override;
+        virtual ~PrintVolunteerStatus() override;
     private:
         const int volunteerId;
 };
@@ -111,6 +118,7 @@ class PrintActionsLog : public BaseAction {
         void act(WareHouse &wareHouse) override;
         PrintActionsLog *clone() const override;
         string toString() const override;
+        virtual ~PrintActionsLog() override;
     private:
 };
 
@@ -120,6 +128,7 @@ class Close : public BaseAction {
         void act(WareHouse &wareHouse) override;
         Close *clone() const override;
         string toString() const override;
+        virtual ~Close() override;
     private:
 };
 
@@ -129,6 +138,7 @@ class BackupWareHouse : public BaseAction {
         void act(WareHouse &wareHouse) override;
         BackupWareHouse *clone() const override;
         string toString() const override;
+        virtual ~BackupWareHouse() override;
     private:
 };
 
@@ -139,5 +149,6 @@ class RestoreWareHouse : public BaseAction {
         void act(WareHouse &wareHouse) override;
         RestoreWareHouse *clone() const override;
         string toString() const override;
+        virtual ~RestoreWareHouse() override;
     private:
 };

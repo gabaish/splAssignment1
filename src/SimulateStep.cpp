@@ -97,3 +97,5 @@ SimulateStep* SimulateStep:: clone() const{
     return new SimulateStep(*this);
 
 }
+
+SimulateStep:: ~SimulateStep() = default;

@@ -31,3 +31,4 @@ string BackupWareHouse:: toString() const{
     return returnString;
 }
 
+BackupWareHouse:: ~BackupWareHouse() = default;

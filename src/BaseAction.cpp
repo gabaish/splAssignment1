@@ -28,3 +28,5 @@ string BaseAction::getStatusString() const {
     }
     return "Unknown";
 }
+
+BaseAction:: ~BaseAction() = default;

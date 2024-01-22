@@ -49,3 +49,5 @@ string PrintCustomerStatus::toString() const{
 
 }
 
+PrintCustomerStatus:: ~PrintCustomerStatus() = default;
+

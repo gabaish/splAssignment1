@@ -37,5 +37,6 @@ std::string AddOrder:: toString() const{
     }
 
     return returnString;
-
 }
+
+AddOrder:: ~AddOrder() = default;

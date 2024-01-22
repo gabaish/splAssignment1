@@ -19,6 +19,12 @@ void PrintVolunteerStatus::act(WareHouse &wareHouse){
 
 
         switch(type){
+            case VolunteerType::Volunteer: {
+                current_volunteer.toString();
+                //when testing, check if we need this, or we can count on the polymorphism like above
+                //CollectorVolunteer *collectorVolunteer = dynamic_cast<CollectorVolunteer*>(&current_volunteer);
+                //collectorVolunteer->toString();
+            }
             case VolunteerType::Collector: {
                 current_volunteer.toString();
                 //when testing, check if we need this, or we can count on the polymorphism like above
@@ -73,3 +79,5 @@ string PrintVolunteerStatus:: toString() const{
     return returnString;
 
 }
+
+PrintVolunteerStatus:: ~PrintVolunteerStatus() = default;

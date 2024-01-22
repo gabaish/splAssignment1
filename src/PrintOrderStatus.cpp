@@ -44,3 +44,5 @@ std::string PrintOrderStatus:: toString() const{
     return returnString;
 
 }
+
+PrintOrderStatus:: ~PrintOrderStatus() = default;

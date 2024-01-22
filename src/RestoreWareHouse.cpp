@@ -36,3 +36,5 @@ string RestoreWareHouse:: toString() const{
     }
     return returnString;
 }
+
+RestoreWareHouse:: ~RestoreWareHouse() = default;

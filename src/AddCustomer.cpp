@@ -3,15 +3,8 @@
 
 //do we need to verify the input is correct? 
 AddCustomer::AddCustomer(const string& customerName, const string &customerType, int distance, int maxOrders):
-customerName(customerName),distance(distance),maxOrders(maxOrders),
-    customerType(){
-        if (customerType == "soldier") 
-            CustomerType::Soldier;
-        else if (customerType == "civilian")
-            CustomerType::Civilian;
-    }
-
-
+customerName(customerName),customerType(customerType=="soldier"? CustomerType::Soldier : CustomerType::Civilian),distance(distance),maxOrders(maxOrders)
+    {}
 
 void AddCustomer::act(WareHouse &wareHouse){
     Customer* new_customer=nullptr;
@@ -55,8 +48,9 @@ string AddCustomer::toString() const{
 
     return returnString;
 
-    // override?
 }
+
+AddCustomer:: ~AddCustomer() = default;
 
     
 

@@ -28,3 +28,5 @@ string Close:: toString() const{
 Close* Close:: clone() const{
     return new Close(*this);
 }
+
+Close:: ~Close() = default;
