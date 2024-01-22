@@ -41,11 +41,13 @@ OrderStatus Order::getStatus() const{
     return this->status;
 }
 
+// used for action Close()
 const string Order:: toString() const{
-    string returnString = (std::to_string(this->id));
-    returnString.append(" ");
+    string returnString = "OrderID: ";
+    returnString.append(std::to_string(this->id));
+    returnString.append(" , CustomerID: ");
     returnString.append(std::to_string(this->customerId));
-    returnString.append(" ");
+    returnString.append(" , OrderStatus: ");
     returnString.append(this->getStatusString());
 
     return returnString;
