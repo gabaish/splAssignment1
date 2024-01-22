@@ -21,6 +21,10 @@ int Volunteer::getCompletedOrderId() const{
     return this->completedOrderId;
 }
 
+void Volunteer::setCompletedOrderId(int completedOrderId){
+    this->completedOrderId = completedOrderId;
+}
+
 bool Volunteer::isBusy() const{
     return(!this->activeOrderId==NO_ORDER);
     // if the activeOrderId is NO_ORDER - the volunteer is not busy

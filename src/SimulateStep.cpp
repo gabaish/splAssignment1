@@ -12,6 +12,7 @@ void SimulateStep::act(WareHouse& warehouse) {
                 for(Volunteer* volunteer : warehouse.getVolunteers()) {
                     if(volunteer->getVolunteerType()== VolunteerType::Collector && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
+                        order->setCollectorId(volunteer->getId());
                         warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
@@ -21,6 +22,7 @@ void SimulateStep::act(WareHouse& warehouse) {
                 for(Volunteer* volunteer : warehouse.getVolunteers()){
                     if(volunteer->getVolunteerType()== VolunteerType::Driver && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
+                        order->setDriverId(volunteer->getId());
                         warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
@@ -38,17 +40,21 @@ void SimulateStep::act(WareHouse& warehouse) {
                 volunteer->step();
                 // if after the step the volunteer is done processing - the activeOrderId shold be NO_ORDER
                 if(volunteer->getActiveOrderId()==NO_ORDER){
+                    
                     // collectors should push their order to pendingOrders
                     if(volunteer->getVolunteerType()==VolunteerType::Collector){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
                         // type &orderToAdd - not sure about it memory-wise
                         warehouse.moveOrderFromInProcessToPending(&orderToAdd);
+                        volunteer->setCompletedOrderId(NO_ORDER);
+                        
                     }
                     // drivers should push their order to completedOrders
                     if(volunteer->getVolunteerType()==VolunteerType::Driver){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
                         // type &orderToAdd - not sure about it memory-wise
                         warehouse.moveOrderFromInProcessToCompleted(&orderToAdd);
+                        volunteer->setCompletedOrderId(NO_ORDER);
                     }
                 }
             }
