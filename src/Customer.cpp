@@ -1,7 +1,7 @@
 #include "../include/Customer.h"
 
 Customer::Customer(int id, const string &name, int locationDistance, int maxOrders): 
-id(id),name(name), locationDistance(locationDistance), maxOrders(maxOrders) {
+id(id),name(name), locationDistance(locationDistance), maxOrders(maxOrders), ordersId(vector<int>()) {
     //vector should init itself I guess 
 }
 
@@ -26,7 +26,7 @@ int Customer:: getNumOrders() const{
 }
 
 bool Customer:: canMakeOrder() const{
-    return(this->ordersId.size()<this->maxOrders);
+    return(this->ordersId.size()< static_cast<std::vector<int>::size_type>(this->maxOrders));
 }
 
 const vector<int>& Customer:: getOrdersIds() const{
@@ -39,3 +39,5 @@ int Customer:: addOrder(int orderId){
     // in the comments they said return orderId only if the adding worked, 
     // but in what situation should it not work..? 
 }
+
+Customer:: ~Customer() = default;

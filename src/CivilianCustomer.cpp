@@ -7,3 +7,5 @@ CivilianCustomer::CivilianCustomer(int id, const string &name, int locationDista
 CivilianCustomer* CivilianCustomer:: clone() const{
     return new CivilianCustomer(*this);
 }
+
+CivilianCustomer:: ~CivilianCustomer() = default;
