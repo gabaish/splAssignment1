@@ -65,4 +65,7 @@ void DriverVolunteer:: step(){
 string DriverVolunteer:: toString() const{
     string driverVolunteerStatus= "TimeLeft: " +std::to_string(this->getDistanceLeft())+ "\n"
                                     "OrdersLeft: No Limit \n";
+    return driverVolunteerStatus;
 }
+
+DriverVolunteer:: ~DriverVolunteer() = default;

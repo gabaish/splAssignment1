@@ -24,7 +24,7 @@ bool LimitedDriverVolunteer:: hasOrdersLeft() const{
 }
 
 bool LimitedDriverVolunteer:: canTakeOrder(const Order& order) const{
-    return(!isBusy&&hasOrdersLeft()&&(order.getDistance()<this->getMaxDistance()));
+    return((!isBusy())&&hasOrdersLeft()&&(order.getDistance()<this->getMaxDistance()));
 
 }
 
@@ -38,4 +38,7 @@ void LimitedDriverVolunteer:: acceptOrder(const Order& order){
 string LimitedDriverVolunteer:: toString() const{
         string limitedDriverVolunteerStatus= "TimeLeft: " +std::to_string(this->getDistanceLeft())+ "\n"
                                     "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
+        return limitedDriverVolunteerStatus;
 }
+
+LimitedDriverVolunteer:: ~LimitedDriverVolunteer() = default;

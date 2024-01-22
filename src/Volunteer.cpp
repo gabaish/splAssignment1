@@ -1,9 +1,7 @@
 #include "../include/Volunteer.h"
 
 Volunteer::Volunteer(int id, const string &name):
-id(id),name(name),completedOrderId(NO_ORDER),activeOrderId(NO_ORDER),volunteerType(VolunteerType::Volunteer){}
-// In constructors I couldn't use this-> (vsCode didnt like it) so it's in this type
-// of syntax for now
+completedOrderId(NO_ORDER),activeOrderId(NO_ORDER),volunteerType(VolunteerType::Volunteer),id(id),name(name){}
 
 int Volunteer::getId() const{
     return this->id;
@@ -26,10 +24,12 @@ void Volunteer::setCompletedOrderId(int completedOrderId){
 }
 
 bool Volunteer::isBusy() const{
-    return(!this->activeOrderId==NO_ORDER);
+    return!(this->activeOrderId==NO_ORDER);
     // if the activeOrderId is NO_ORDER - the volunteer is not busy
 }
 
 VolunteerType Volunteer::getVolunteerType() const{
     return this->volunteerType;
 }
+
+Volunteer:: ~Volunteer() = default;

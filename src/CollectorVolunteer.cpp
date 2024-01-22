@@ -56,9 +56,7 @@ void CollectorVolunteer:: acceptOrder(const Order &order){
 string CollectorVolunteer:: toString() const{
     string collectorVolunteerStatus= "TimeLeft: " +std::to_string(this->getTimeLeft())+ "\n"
                                     "OrdersLeft: No Limit \n";
+    return collectorVolunteerStatus;
 }
 
-bool CollectorVolunteer:: hasOrdersLeft() const{
-    return true;
-    //there is no limit
-} 
+CollectorVolunteer:: ~CollectorVolunteer() = default;

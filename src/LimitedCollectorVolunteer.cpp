@@ -40,4 +40,7 @@ int LimitedCollectorVolunteer:: getNumOrdersLeft() const{
 string LimitedCollectorVolunteer:: toString() const{
     string limitedCollectorVolunteerStatus= "TimeLeft: " +std::to_string(this->getTimeLeft())+ "\n"
                                     "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
+    return limitedCollectorVolunteerStatus;
 }
+
+LimitedCollectorVolunteer:: ~LimitedCollectorVolunteer() = default;
