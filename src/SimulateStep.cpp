@@ -77,7 +77,6 @@ void SimulateStep::act(WareHouse& warehouse) {
     this->complete();
     warehouse.addAction(this);
 
-    //override? 
 }
 
 std::string SimulateStep:: toString() const{
@@ -92,12 +91,9 @@ std::string SimulateStep:: toString() const{
 
     return returnString;
 
-    // override?
 }
 
 SimulateStep* SimulateStep:: clone() const{
     return new SimulateStep(*this);
 
-    // is this the way? 
-    // override? 
 }

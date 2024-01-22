@@ -23,12 +23,8 @@ string Close:: toString() const{
 
     return returnString;
 
-    // override?
 }
 
 Close* Close:: clone() const{
     return new Close(*this);
-
-    // is this the way? 
-    // override? 
 }

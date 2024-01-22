@@ -23,14 +23,11 @@ void PrintOrderStatus:: act(WareHouse &wareHouse){
 
     wareHouse.addAction(this);
 
-    // override?
 }
 
 PrintOrderStatus* PrintOrderStatus:: clone() const{
     return new PrintOrderStatus(*this);
 
-    // is this the way? 
-    // override? 
 }
 
 std::string PrintOrderStatus:: toString() const{
@@ -45,5 +42,4 @@ std::string PrintOrderStatus:: toString() const{
 
     return returnString;
 
-    // override?
 }

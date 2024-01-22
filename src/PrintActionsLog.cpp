@@ -15,9 +15,6 @@ void PrintActionsLog:: act(WareHouse &wareHouse){
 
 PrintActionsLog* PrintActionsLog:: clone() const{
     return new PrintActionsLog(*this);
-
-    // is this the way? 
-    // override? 
 }
 
 std::string PrintActionsLog:: toString() const{
@@ -30,5 +27,4 @@ std::string PrintActionsLog:: toString() const{
 
     return returnString;
 
-    // override?
 }

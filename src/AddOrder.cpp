@@ -17,16 +17,11 @@ void AddOrder:: act(WareHouse &wareHouse){
         this->error("Cannot place this order");
     }
     wareHouse.addAction(this);
-
-    // override?
 }
 
 
 AddOrder* AddOrder:: clone() const{
     return new AddOrder(*this);
-
-    // is this the way? 
-    // override? 
 }
 
 std::string AddOrder:: toString() const{
@@ -41,5 +36,4 @@ std::string AddOrder:: toString() const{
 
     return returnString;
 
-    // override?
 }

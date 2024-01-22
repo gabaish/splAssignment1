@@ -62,5 +62,4 @@ string PrintVolunteerStatus:: toString() const{
 
     return returnString;
 
-    // override?
 }

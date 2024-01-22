@@ -47,6 +47,5 @@ string PrintCustomerStatus::toString() const{
 
     return returnString;
 
-    // override?
 }
 
