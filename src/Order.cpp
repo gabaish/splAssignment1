@@ -61,16 +61,15 @@ string Order:: getStatusString() const {
     string returnString = "";
     switch(this->status){
         case(OrderStatus::PENDING):
-            return "PENDING";    
+            returnString.append("PENDING");    
         case(OrderStatus::COLLECTING):
-            return "COLLECTING"; 
+            returnString.append("COLLECTING"); 
         case(OrderStatus::DELIVERING):
-            return "DELIVERING";    
+            returnString.append("DELIVERING");   
         case(OrderStatus::COMPLETED):
-            return "COMPLETED"; 
+            returnString.append("COMPLETED");   
     }
-    
-
+    return returnString;
 }
 
 Order* Order:: clone() const {
