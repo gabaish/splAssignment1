@@ -9,22 +9,14 @@ CollectorVolunteer(id,name,coolDown),maxOrders(maxOrders),ordersLeft(maxOrders){
 
 LimitedCollectorVolunteer* LimitedCollectorVolunteer:: clone() const {
     return new LimitedCollectorVolunteer(*this);
-
-    // shoud this be implemented with new? who deletes it? 
-    // also - I do not have a copy constructor, is the default enoug
-    // should I have override keyword in the signature? 
 } 
 
 bool LimitedCollectorVolunteer:: hasOrdersLeft() const{
     return (this->ordersLeft>0);
-
-    //override? 
 }
 
 bool LimitedCollectorVolunteer:: canTakeOrder(const Order& order) const{
     return(hasOrdersLeft() && !isBusy());
-
-    //override? 
 }
 
 void LimitedCollectorVolunteer:: acceptOrder(const Order& order){
@@ -33,7 +25,6 @@ void LimitedCollectorVolunteer:: acceptOrder(const Order& order){
     this->ordersLeft-=1;
     // I'm counting on the fact that we only get here after using hasOrdersLeft()
 
-    //override? 
 }
 
 int LimitedCollectorVolunteer:: getMaxOrders() const{
@@ -47,5 +38,4 @@ int LimitedCollectorVolunteer:: getNumOrdersLeft() const{
 string CollectorVolunteer:: toString() const{
 
     //implement once I know what to print
-    //override? 
 }

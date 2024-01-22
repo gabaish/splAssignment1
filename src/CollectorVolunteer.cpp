@@ -9,10 +9,6 @@ Volunteer(id,name),coolDown(coolDown),timeLeft(0){
 
 CollectorVolunteer* CollectorVolunteer:: clone() const {
     return new CollectorVolunteer(*this);
-
-// shoud this be implemented with new? who deletes it? 
-// also - I do not have a copy constructor, is the default enoug
-// should I have override keyword in the signature? 
 } 
 
 void CollectorVolunteer:: step() {
@@ -46,7 +42,6 @@ bool CollectorVolunteer:: decreaseCoolDown(){
 bool CollectorVolunteer:: hasOrdersLeft() const{
     return true;
     // true because it is not limited, so it is never false
-    //override? 
 }
 
 bool CollectorVolunteer:: canTakeOrder(const Order &order) const{
@@ -54,20 +49,17 @@ bool CollectorVolunteer:: canTakeOrder(const Order &order) const{
     // is there a reason he couldnt? besides being busy? I think not
     //should I do like CollectorVolunteer:isBusy()? 
 
-    //override?
 }
 
 void CollectorVolunteer:: acceptOrder(const Order &order){
     this->activeOrderId= order.getId();
     this->timeLeft= this->coolDown;
 
-    //override?
 }
 
 string CollectorVolunteer:: toString() const{
 
     //implement once I know what to print
-    //override? 
 }
 
 bool CollectorVolunteer:: hasOrdersLeft() const{

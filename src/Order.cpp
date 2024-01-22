@@ -75,8 +75,4 @@ string Order:: getStatusString() const {
 
 Order* Order:: clone() const {
     return new Order(*this);
-
-// shoud this be implemented with new? who deletes it? 
-// also - I do not have a copy constructor, is the default enoug
-// should I have override keyword in the signature? 
 } 

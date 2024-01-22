@@ -9,10 +9,6 @@ Volunteer(id,name),maxDistance(maxDistance),distancePerStep(distancePerStep),dis
 
 DriverVolunteer* DriverVolunteer:: clone() const {
     return new DriverVolunteer(*this);
-
-// shoud this be implemented with new? who deletes it? 
-// also - I do not have a copy constructor, is the default enoug
-// should I have override keyword in the signature? 
 } 
 
 int DriverVolunteer:: getDistanceLeft() const{
@@ -42,21 +38,18 @@ bool DriverVolunteer:: decreaseDistanceLeft(){
 bool DriverVolunteer:: hasOrdersLeft() const{
     return true;
 
-    //no limit because its not a limited 
-    //override? 
+    //no limit because its not a limited  
 }
 
 bool DriverVolunteer:: canTakeOrder(const Order& order) const {
     return(!isBusy() && order.getDistance()<=this->maxDistance);
 
-    //override? 
 }
 
 void DriverVolunteer:: acceptOrder(const Order& order){
     this->activeOrderId=order.getId();
     this->distanceLeft=order.getDistance();
-
-    //override? 
+ 
 }
 
 
@@ -67,12 +60,10 @@ void DriverVolunteer:: step(){
         this->activeOrderId=NO_ORDER;
     }
     // I changed the activeOrderId back to NO_ORDER, should have I?  
-    //override?
 }
 
 
 string DriverVolunteer:: toString() const{
 
     //implement once I know what to print
-    //override? 
 }

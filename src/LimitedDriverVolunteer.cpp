@@ -8,11 +8,7 @@ DriverVolunteer(id,name,maxDistance,distancePerStep),maxOrders(maxOrders),orders
 }
 
 LimitedDriverVolunteer* LimitedDriverVolunteer:: clone() const {
-    return new LimitedDriverVolunteer(*this);
-
-    // shoud this be implemented with new? who deletes it? 
-    // also - I do not have a copy constructor, is the default enoug
-    // should I have override keyword in the signature? 
+    return new LimitedDriverVolunteer(*this); 
 } 
 
 int LimitedDriverVolunteer:: getMaxOrders() const{
@@ -25,14 +21,11 @@ int LimitedDriverVolunteer:: getNumOrdersLeft() const{
 
 bool LimitedDriverVolunteer:: hasOrdersLeft() const{
     return (this->ordersLeft>0);
-
-    //override?
 }
 
 bool LimitedDriverVolunteer:: canTakeOrder(const Order& order) const{
     return(!isBusy&&hasOrdersLeft()&&(order.getDistance()<this->getMaxDistance()));
 
-    //override?
 }
 
 void LimitedDriverVolunteer:: acceptOrder(const Order& order){
@@ -40,12 +33,9 @@ void LimitedDriverVolunteer:: acceptOrder(const Order& order){
     // is it ok to use this method here? just to prevent double coding
     this->ordersLeft-=1;
     // I'm counting on the fact that we only get here after using hasOrdersLeft()
-
-    //override?
 }
 
 string LimitedDriverVolunteer:: toString() const{
 
     //implement once I know what to print
-    //override? 
 }
