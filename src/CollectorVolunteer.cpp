@@ -12,14 +12,12 @@ CollectorVolunteer* CollectorVolunteer:: clone() const {
 } 
 
 void CollectorVolunteer:: step() {
-    if(this->activeOrderId!=NO_ORDER && this->timeLeft==0)
+    bool finishedCurrentOrder = decreaseCoolDown();
+    if(finishedCurrentOrder)
     {
         this->completedOrderId=this->activeOrderId;
         this->activeOrderId=NO_ORDER;
     }
-
-// I changed the activeOrderId back to NO_ORDER, should have I?         
-// should I have override keyword in the signature? 
 }
 
 int CollectorVolunteer::getCoolDown() const{
@@ -46,8 +44,6 @@ bool CollectorVolunteer:: hasOrdersLeft() const{
 
 bool CollectorVolunteer:: canTakeOrder(const Order &order) const{
     return !isBusy();
-    // is there a reason he couldnt? besides being busy? I think not
-    //should I do like CollectorVolunteer:isBusy()? 
 
 }
 

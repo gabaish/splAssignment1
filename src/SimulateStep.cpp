@@ -10,9 +10,11 @@ void SimulateStep::act(WareHouse& warehouse) {
             if(order->getStatus()==OrderStatus::PENDING){
                 // looking for an available collector
                 for(Volunteer* volunteer : warehouse.getVolunteers()) {
-                    if(volunteer->getVolunteerType()== VolunteerType::Collector && volunteer->canTakeOrder(*order)){
+                    if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
+                    && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
                         order->setCollectorId(volunteer->getId());
+                        order->setStatus(OrderStatus::COLLECTING);
                         warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
@@ -20,9 +22,11 @@ void SimulateStep::act(WareHouse& warehouse) {
             } else if (order->getStatus()==OrderStatus::COLLECTING){
                 // looking for an available driver
                 for(Volunteer* volunteer : warehouse.getVolunteers()){
-                    if(volunteer->getVolunteerType()== VolunteerType::Driver && volunteer->canTakeOrder(*order)){
+                    if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
+                    && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
                         order->setDriverId(volunteer->getId());
+                        order->setStatus(OrderStatus::DELIVERING);
                         warehouse.moveOrderFromPendingToInProcess(order);
                         break;
                     }
@@ -35,26 +39,25 @@ void SimulateStep::act(WareHouse& warehouse) {
         // third step in the schema - once performing a step - check if they are done processing
         for(Volunteer* volunteer : warehouse.getVolunteers()){
             // if the volunteer is curentlly working on something - we should simulate a step
-            if(volunteer->getActiveOrderId()!=NO_ORDER)
+            if(volunteer->isBusy())
             {
                 volunteer->step();
                 // if after the step the volunteer is done processing - the activeOrderId shold be NO_ORDER
                 if(volunteer->getActiveOrderId()==NO_ORDER){
                     
                     // collectors should push their order to pendingOrders
-                    if(volunteer->getVolunteerType()==VolunteerType::Collector){
+                    if((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
-                        // type &orderToAdd - not sure about it memory-wise
                         warehouse.moveOrderFromInProcessToPending(&orderToAdd);
                         volunteer->setCompletedOrderId(NO_ORDER);
                         
                     }
                     // drivers should push their order to completedOrders
-                    if(volunteer->getVolunteerType()==VolunteerType::Driver){
+                    if((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)){
                         Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
-                        // type &orderToAdd - not sure about it memory-wise
                         warehouse.moveOrderFromInProcessToCompleted(&orderToAdd);
                         volunteer->setCompletedOrderId(NO_ORDER);
+                        orderToAdd.setStatus(OrderStatus::COMPLETED);
                     }
                 }
             }
@@ -62,13 +65,10 @@ void SimulateStep::act(WareHouse& warehouse) {
 
         // fourth step in the schema - delete volunteers that had maxed out and finished their last order
         for(Volunteer* volunteer : warehouse.getVolunteers()){
-            if(!(volunteer->hasOrdersLeft()) && volunteer->getActiveOrderId()==NO_ORDER){
+            if(!(volunteer->hasOrdersLeft()) && !volunteer->isBusy()){
                 warehouse.removeVolunteer(volunteer);
 
                 delete volunteer;
-
-                //it this how we delete memory in c++ ? 
-
             }
 
         }

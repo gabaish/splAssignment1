@@ -31,7 +31,6 @@ bool DriverVolunteer:: decreaseDistanceLeft(){
     else{
         this->distanceLeft-=this->distancePerStep;
         return false;
-        //is this syntax ok? 
     }
 }
 

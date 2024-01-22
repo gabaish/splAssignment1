@@ -9,25 +9,15 @@
 #include <algorithm>
 
 
-WareHouse::WareHouse(const string &configFilePath){
-    
-    isOpen = false;
-    actionsLog = vector<BaseAction*>();
-    volunteers = vector<Volunteer*>();
-    pendingOrders = vector<Order*>();
-    inProcessOrders = vector<Order*>();
-    completedOrders = vector<Order*>();
-    customers = vector<Customer*>();
-    int customerCounter=0; //For assigning unique customer IDs
-    int volunteerCounter=0; //For assigning unique volunteer IDs
-    int orderCounter=0;
+WareHouse::WareHouse(const string &configFilePath):
+isOpen(false),actionsLog(vector<BaseAction*>()),volunteers(vector<Volunteer*>()),
+pendingOrders(vector<Order*>()),inProcessOrders(vector<Order*>()),completedOrders(vector<Order*>()),
+customers(vector<Customer*>()),customerCounter(0),volunteerCounter(0),orderCounter(0){
     
     //adding default volunteer with id=-1  to volunteers:
     Volunteer* default_volunteer = new CollectorVolunteer(-1, "default",0);
     volunteers.push_back(default_volunteer);
-    
-    
-    //do we need to add each action to the action log?
+        
     ifstream configFile(configFilePath);
 
     if(configFile.is_open())
@@ -93,8 +83,6 @@ void WareHouse::start()
     open();
     cout<<"Warehouse is open!"<<endl;
 
-    //verify if we need to verify the user input (entered number, entered enough arguments..)
-    //check if we can changw to switch 
     while(isOpen){
 
         std::string user_input;
@@ -107,7 +95,6 @@ void WareHouse::start()
 
             //looking for the action:
             if(action=="step"){
-                //do we need to verify if the input is correct?
                 int numOfSteps=std::stoi(tokens[1]);
                 SimulateStep simulateStep(numOfSteps);
                 simulateStep.act(*this);
@@ -165,7 +152,6 @@ void WareHouse::start()
 
 }
 
-//need to change the method name to getActions()
 const vector<BaseAction*> &WareHouse::getActions() const
 {
     return actionsLog;
@@ -282,7 +268,6 @@ void WareHouse::addVolunteer(string volunteer_name, string volunteerRole, istrin
 }
 
 void WareHouse::moveOrderFromPendingToInProcess(Order* order){
-    // maybe it should get const ref? and not pinter..? but its a vector of pointers
     // remove the order from pendingOrders
     auto it = std::remove(this->pendingOrders.begin(), this->pendingOrders.end(), order);
     this->pendingOrders.erase(it, pendingOrders.end());

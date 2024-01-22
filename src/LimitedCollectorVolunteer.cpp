@@ -16,12 +16,14 @@ bool LimitedCollectorVolunteer:: hasOrdersLeft() const{
 }
 
 bool LimitedCollectorVolunteer:: canTakeOrder(const Order& order) const{
-    return(hasOrdersLeft() && !isBusy());
+    if(this->CollectorVolunteer::canTakeOrder(order))
+        return hasOrdersLeft();
+    else
+        return false;
 }
 
 void LimitedCollectorVolunteer:: acceptOrder(const Order& order){
     this->CollectorVolunteer::acceptOrder(order);
-    // is it ok to use this method here? just to prevent double coding
     this->ordersLeft-=1;
     // I'm counting on the fact that we only get here after using hasOrdersLeft()
 
