@@ -36,7 +36,7 @@ PrintCustomerStatus *PrintCustomerStatus::clone() const{
 }
 
 string PrintCustomerStatus::toString() const{
-    string returnString = "volunteerStatus ";
+    string returnString = "customerStatus ";
     returnString.append(std::to_string(this->customerId));
     returnString.append(" ");
     returnString.append(this->getStatusString());

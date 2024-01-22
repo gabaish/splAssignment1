@@ -26,7 +26,7 @@ RestoreWareHouse* RestoreWareHouse:: clone() const{
 }
 
 string RestoreWareHouse:: toString() const{
-    string returnString = "backup";
+    string returnString = "restore";
     returnString.append(" ");
     returnString.append(this->getStatusString());
     if(this->getStatus() ==  ActionStatus::ERROR){
