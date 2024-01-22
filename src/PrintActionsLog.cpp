@@ -1,10 +1,10 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 #include <iostream>
 
 PrintActionsLog::PrintActionsLog(){}
 
 void PrintActionsLog:: act(WareHouse &wareHouse){
-    for(BaseAction* action: wareHouse.getActionsLog()){
+    for(BaseAction* action: wareHouse.getActions()){
         cout << action->toString() << endl;
     }
 

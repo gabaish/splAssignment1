@@ -6,7 +6,7 @@ using namespace std;
 #include "Order.h"
 #include "Customer.h"
 #include "Volunteer.h"
-#include "BaseAction.h"
+#include "Action.h"
 
 class BaseAction;
 class Volunteer;
@@ -19,10 +19,9 @@ class WareHouse {
     public:
         WareHouse(const string &configFilePath);
         void start();
-        const vector<BaseAction*> &getActionsLog() const;
+        const vector<BaseAction*> &getActions() const;
         void addOrder(Order* order);
         void addAction(BaseAction* action);
-        void printActionsLogs();
         Customer &getCustomer(int customerId) const;
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;

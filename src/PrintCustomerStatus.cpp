@@ -1,4 +1,4 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 #include <iostream>
 
 PrintCustomerStatus::PrintCustomerStatus(int customerId) : customerId(customerId){}
@@ -10,7 +10,7 @@ void PrintCustomerStatus::act(WareHouse &wareHouse) {
         Customer& current_cutomer=wareHouse.getCustomer(customerId);
 
         //printing all inProcessOrders, if exist:
-        const vector<int> &orders=current_cutomer.getOrders();
+        const vector<int> &orders=current_cutomer.getOrdersIds();
         for(int order_id : orders){
             Order& current_order=wareHouse.getOrder(order_id);
             cout << "OrderID: " << order_id << endl;

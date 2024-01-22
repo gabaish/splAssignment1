@@ -29,7 +29,7 @@ bool Customer:: canMakeOrder() const{
     return(this->ordersId.size()<this->maxOrders);
 }
 
-const vector<int>& Customer:: getOrders() const{
+const vector<int>& Customer:: getOrdersIds() const{
     return this->ordersId;
 }
 

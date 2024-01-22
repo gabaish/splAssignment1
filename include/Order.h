@@ -6,7 +6,7 @@ using std::string;
 using std::vector;
 
 
-class Volunteer;
+//class Volunteer;
 
 enum class OrderStatus {
     PENDING,

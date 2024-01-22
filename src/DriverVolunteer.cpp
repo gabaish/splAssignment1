@@ -1,6 +1,6 @@
 #include "../include/Volunteer.h"
 
-DriverVolunteer::DriverVolunteer(int id, string name, int maxDistance, int distancePerStep):
+DriverVolunteer::DriverVolunteer(int id, const string &name, int maxDistance, int distancePerStep):
 Volunteer(id,name),maxDistance(maxDistance),distancePerStep(distancePerStep),distanceLeft(0){
     volunteerType=VolunteerType::Driver;
     // I initialized distanceLeft (time left for the volunteer to finish its current order) to 0,

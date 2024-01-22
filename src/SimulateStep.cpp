@@ -1,4 +1,4 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 
 SimulateStep::SimulateStep(int numOfSteps):
 numOfSteps(numOfSteps){}

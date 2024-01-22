@@ -1,6 +1,6 @@
 #include "../include/Volunteer.h"
 
-CollectorVolunteer::CollectorVolunteer(int id, string name, int coolDown):
+CollectorVolunteer::CollectorVolunteer(int id, const string &name, int coolDown):
 Volunteer(id,name),coolDown(coolDown),timeLeft(0){
     volunteerType=VolunteerType::Collector;
     // I initialized timeLeft (time left for the volunteer to finish its current order) to 0,

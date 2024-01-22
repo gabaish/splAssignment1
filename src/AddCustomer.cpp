@@ -1,8 +1,8 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 
 
 //do we need to verify the input is correct? 
-AddCustomer::AddCustomer(string customerName, string customerType, int distance, int maxOrders):
+AddCustomer::AddCustomer(const string& customerName, const string &customerType, int distance, int maxOrders):
 customerName(customerName),distance(distance),maxOrders(maxOrders),
     customerType(){
         if (customerType == "soldier") 

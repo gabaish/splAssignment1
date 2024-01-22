@@ -1,4 +1,4 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 
 BaseAction::BaseAction():
 errorMsg(""),status(ActionStatus::COMPLETED){

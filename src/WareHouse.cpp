@@ -1,5 +1,5 @@
 #include "../include/WareHouse.h"
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -166,7 +166,7 @@ void WareHouse::start()
 }
 
 //need to change the method name to getActions()
-const vector<BaseAction*> &WareHouse::getActionsLog() const
+const vector<BaseAction*> &WareHouse::getActions() const
 {
     return actionsLog;
 }
@@ -183,16 +183,6 @@ void WareHouse:: addOrder(Order* order)
 void WareHouse:: addAction(BaseAction* action)
 {
     actionsLog.push_back(action);
-}
-
-//TO DO (what to do in here?)
-//No Need - the deleted the method
-void WareHouse:: printActionsLogs()
-{
-    for(const auto& action : actionsLog)
-    {
-        cout << action << endl;
-    }
 }
 
 

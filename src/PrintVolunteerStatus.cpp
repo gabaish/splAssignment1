@@ -1,14 +1,14 @@
-#include "../include/BaseAction.h"
+#include "../include/Action.h"
 #include <iostream>
 
-PrintVolunteerStatus::PrintVolunteerStatus(int id) : VolunteerId(id){}
+PrintVolunteerStatus::PrintVolunteerStatus(int id) : volunteerId(id){}
 
 void PrintVolunteerStatus::act(WareHouse &wareHouse){
-    Volunteer& current_volunteer=wareHouse.getVolunteer(VolunteerId);
+    Volunteer& current_volunteer=wareHouse.getVolunteer(volunteerId);
 
     //if volunteer Id exsit:
     if(current_volunteer.getId()!=-1){
-        cout << "VolunteerID: " << VolunteerId << endl;
+        cout << "VolunteerID: " << volunteerId << endl;
         cout << "isBusy: " << current_volunteer.isBusy() << endl;
         //getActiveOrderID returns NO_ORDER, but they want none, TOCHECK
         cout << "OrderID: " << current_volunteer.getActiveOrderId() << endl;
@@ -52,7 +52,7 @@ PrintVolunteerStatus* PrintVolunteerStatus::clone() const{
 
 string PrintVolunteerStatus:: toString() const{
     string returnString = "volunteerStatus ";
-    returnString.append(std::to_string(this->VolunteerId));
+    returnString.append(std::to_string(this->volunteerId));
     returnString.append(" ");
     returnString.append(this->getStatusString());
     if(this->getStatus() ==  ActionStatus::ERROR){
