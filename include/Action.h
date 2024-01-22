@@ -15,6 +15,7 @@ enum class CustomerType{
 
 
 class Customer;
+class WareHouse;
 
 class BaseAction{
     public:

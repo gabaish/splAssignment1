@@ -41,8 +41,8 @@ class WareHouse {
         ~WareHouse();
         WareHouse(const WareHouse &other);
         WareHouse &operator=(const WareHouse &other);
-        WareHouse(WareHouse &&other);
-        WareHouse &operator=(WareHouse &&other);
+        WareHouse(WareHouse &&other) noexcept;
+        WareHouse &operator=(WareHouse &&other) noexcept;
         void addCustomerConfig(string customerName, string customerType, int distance, int maxOrders);
 
 

@@ -1,5 +1,4 @@
 #include "../include/WareHouse.h"
-#include "../include/Action.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -176,11 +175,13 @@ void WareHouse:: addAction(BaseAction* action)
 //inside the print customers status
 Customer &WareHouse::getCustomer(int customerId) const
 {
-    for(const auto& customer : customers){
+    Customer* returnCustomer = nullptr;
+    for(const auto customer : customers){
         if(customer ->getId()==customerId){
-            return *customer;
+            returnCustomer = customer;
         }
     }
+    return *returnCustomer;
     
 }
  //inside the print volunteer status
@@ -195,7 +196,25 @@ Volunteer &WareHouse::getVolunteer(int volunteerId) const{
 }
 //inside the print order status
 Order &WareHouse::getOrder(int orderId) const{
-    //see what shay is expecting in case null
+    // we only get here after we cmade sure that this orderId exists in the warehouse
+    Order* returnOrder = nullptr;
+    for(const auto& pending_order : pendingOrders)
+    {
+        if(pending_order->getId()==orderId)
+            returnOrder= pending_order;
+    }
+    for(const auto& inProcess_order : inProcessOrders)
+    {
+        if(inProcess_order->getId()==orderId)
+            returnOrder= inProcess_order;
+    }
+    for(const auto& completed_order : completedOrders)
+    {
+        if(completed_order->getId()==orderId)
+            returnOrder= completed_order; 
+    }
+    return *returnOrder;
+
 }
 
 const vector<Volunteer*>& WareHouse:: getVolunteers() const{
@@ -337,9 +356,11 @@ WareHouse:: ~WareHouse() {
     }
 }
 
-WareHouse::WareHouse(const WareHouse& other){
-    //copying the isOpen status:
-    this ->isOpen=other.isOpen;
+WareHouse::WareHouse(const WareHouse& other):
+isOpen(other.isOpen),actionsLog(vector<BaseAction*>()),volunteers(vector<Volunteer*>()),pendingOrders(vector<Order*>()),
+inProcessOrders(vector<Order*>()),completedOrders(vector<Order*>()),customers(vector<Customer*>()),
+customerCounter(other.customerCounter),volunteerCounter(other.volunteerCounter),orderCounter(other.orderCounter)
+{
     //clone all actionsLog:
     for(const BaseAction* action : other.actionsLog){
         this ->actionsLog.push_back(action->clone());
@@ -364,10 +385,6 @@ WareHouse::WareHouse(const WareHouse& other){
     for(const Customer* customer : other.customers){
         this->customers.push_back(customer->clone());
     }
-    //copying the current customerCounter:
-    this ->customerCounter=other.customerCounter;
-    //copying the current volunteerCounter:
-    this ->volunteerCounter=other.volunteerCounter;
 
 }
 
@@ -377,62 +394,69 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
         this ->isOpen=other.isOpen;
 
         //delete old actionLogs:
-        for(int i=0;i<=this->actionsLog.size();i++)
-            delete this ->actionsLog.at(i);
+        for(BaseAction* action: actionsLog){
+            delete action;
+        }
         //clear old actions logs addresses:
         this ->actionsLog.clear();
         // add other actionLogs:
-        for(int i=0;i<=other.actionsLog.size();i++)
-            this ->actionsLog.push_back(other.actionsLog.at(i)->clone());
-
+        for(BaseAction* action: other.actionsLog){
+            this->actionsLog.push_back(action->clone());
+        }
         //delete old volunteers:
-        for(int i=0;i<=this->volunteers.size();i++)
-            delete this ->volunteers.at(i);
+        for(Volunteer* volunteer: volunteers){
+            delete volunteer;
+        }
         //clear old volunteers addresses:
         this ->volunteers.clear();
         // add other volunteers:
-        for(int i=0;i<=other.volunteers.size();i++)
-            this ->volunteers.push_back(other.volunteers.at(i)->clone());
-        
+        for(Volunteer* volunteer: other.volunteers){
+            this->volunteers.push_back(volunteer->clone());
+        }
 
         //delete old pendingOrders:
-        for(int i=0;i<=this->pendingOrders.size();i++)
-            delete this ->pendingOrders.at(i);
+        for(Order* order: pendingOrders){
+            delete order;
+        }
         //clear old pendingOrders addresses:
         this ->pendingOrders.clear();
         // add other pendingOrders:
-        for(int i=0;i<=other.pendingOrders.size();i++)
-            this ->pendingOrders.push_back(other.pendingOrders.at(i)->clone());
-        
+        for(Order* order: other.pendingOrders){
+            this->pendingOrders.push_back(order->clone());
+        }
 
         //delete old inProcessOrders:
-        for(int i=0;i<=this->inProcessOrders.size();i++)
-            delete this ->inProcessOrders.at(i);
+        for(Order* order: inProcessOrders){
+            delete order;
+        }
         //clear old inProcessOrders addresses:
         this ->inProcessOrders.clear();
         // add other inProcessOrders:
-        for(int i=0;i<=other.inProcessOrders.size();i++)
-            this ->inProcessOrders.push_back(other.inProcessOrders.at(i)->clone());
-        
+        for(Order* order: other.inProcessOrders){
+            this->inProcessOrders.push_back(order->clone());
+        }
 
         //delete old completedOrders:
-        for(int i=0;i<=this->completedOrders.size();i++)
-            delete this ->completedOrders.at(i);
+        for(Order* order: completedOrders){
+            delete order;
+        }
         //clear old completedOrders addresses:
         this ->completedOrders.clear();
         // add other completedOrders:
-        for(int i=0;i<=other.completedOrders.size();i++)
-            this ->completedOrders.push_back(other.completedOrders.at(i)->clone());
-        
+        for(Order* order: other.completedOrders){
+            this->completedOrders.push_back(order->clone());
+        }
 
         //delete old customers:
-        for(int i=0;i<=this->customers.size();i++)
-            delete this ->customers.at(i);
+        for(Customer* customer : customers){
+            delete customer;
+        }
         //clear old customers addresses:
         this ->customers.clear();
         // add other customers:
-        for(int i=0;i<=other.customers.size();i++)
-            this ->customers.push_back(other.customers.at(i)->clone());        
+        for(Customer* customer : other.customers){
+            this->customers.push_back(customer->clone());
+        }
 
         this->customerCounter=other.customerCounter;
         this ->volunteerCounter=other.volunteerCounter;
@@ -455,41 +479,47 @@ WareHouse::WareHouse(WareHouse &&other) noexcept : isOpen(other.isOpen), actions
 
 
 //move assignment constructor:
-WareHouse& WareHouse::operator=(WareHouse &&other){
+WareHouse& WareHouse::operator=(WareHouse &&other) noexcept{
     if(this != &other){
         //delete old actionLogs:
-        for(int i=0;i<=this->actionsLog.size();i++)
-            delete this ->actionsLog.at(i);
+        for(BaseAction* action: actionsLog){
+            delete action;
+        }
         //clear old actions logs addresses:
         this ->actionsLog.clear();
         
         //delete old volunteers:
-        for(int i=0;i<=this->volunteers.size();i++)
-            delete this ->volunteers.at(i);
+        for(Volunteer* volunteer : volunteers){
+            delete volunteer;
+        }
         //clear old volunteers addresses:
         this ->volunteers.clear();
         
         //delete old pendingOrders:
-        for(int i=0;i<=this->pendingOrders.size();i++)
-            delete this ->pendingOrders.at(i);
+        for(Order* order:pendingOrders){
+            delete order;
+        }
         //clear old pendingOrders addresses:
         this ->pendingOrders.clear();
        
         //delete old inProcessOrders:
-        for(int i=0;i<=this->inProcessOrders.size();i++)
-            delete this ->inProcessOrders.at(i);
+        for(Order* order : inProcessOrders){
+            delete order;
+        }
         //clear old inProcessOrders addresses:
         this ->inProcessOrders.clear();
 
         //delete old completedOrders:
-        for(int i=0;i<=this->completedOrders.size();i++)
-            delete this ->completedOrders.at(i);
+        for(Order* order : completedOrders){
+            delete order;
+        }
         //clear old completedOrders addresses:
         this ->completedOrders.clear();
 
         //delete old customers:
-        for(int i=0;i<=this->customers.size();i++)
-            delete this ->customers.at(i);
+        for(Customer* customer: customers){
+            delete customer;
+        }
         //clear old customers addresses:
         this ->customers.clear();
        
