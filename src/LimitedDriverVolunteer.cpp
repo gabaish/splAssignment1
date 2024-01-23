@@ -36,9 +36,13 @@ void LimitedDriverVolunteer:: acceptOrder(const Order& order){
 }
 
 string LimitedDriverVolunteer:: toString() const{
-        string limitedDriverVolunteerStatus= "TimeLeft: " +std::to_string(this->getDistanceLeft())+ "\n"
-                                    "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
-        return limitedDriverVolunteerStatus;
+    string timeLeft=std::to_string(this->getDistanceLeft());
+    if(timeLeft=="0"){
+        timeLeft="None";
+    }
+    string limitedDriverVolunteerStatus= "TimeLeft: " +timeLeft+ "\n" 
+                                "OrdersLeft: "+std::to_string(this->getNumOrdersLeft());
+    return limitedDriverVolunteerStatus;
 }
 
 LimitedDriverVolunteer:: ~LimitedDriverVolunteer() = default;
