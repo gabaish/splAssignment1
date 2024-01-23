@@ -461,6 +461,7 @@ WareHouse &WareHouse::operator=(const WareHouse &other){
 
         this->customerCounter=other.customerCounter;
         this ->volunteerCounter=other.volunteerCounter;
+        this->orderCounter=other.orderCounter;
     }
     return *this;
 }
