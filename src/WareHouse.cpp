@@ -95,53 +95,53 @@ void WareHouse::start()
             //looking for the action:
             if(action=="step"){
                 int numOfSteps=std::stoi(tokens[1]);
-                SimulateStep simulateStep(numOfSteps);
-                simulateStep.act(*this);
+                SimulateStep* simulateStep=new SimulateStep(numOfSteps);
+                simulateStep->act(*this);
             }
             else if(action=="order"){
                 int customer_id=std::stoi(tokens[1]);
-                AddOrder addOrder(customer_id);
-                addOrder.act(*this);
+                AddOrder* addOrder = new AddOrder(customer_id);
+                addOrder->act(*this);
             }
             else if(action=="customer"){
                 string customer_name=tokens[1];
                 string customer_type=tokens[2];
                 int customer_distance=std::stoi(tokens[3]);
                 int max_orders=std::stoi(tokens[4]);
-                AddCustomer addCustomer(customer_name,customer_type,customer_distance,max_orders);
-                addCustomer.act(*this);
+                AddCustomer* addCustomer=new AddCustomer(customer_name,customer_type,customer_distance,max_orders);
+                addCustomer->act(*this);
             }
             else if(action=="orderStatus"){
                 int order_id=std::stoi(tokens[1]);
-                PrintOrderStatus printOrderStatus(order_id);
-                printOrderStatus.act(*this);
+                PrintOrderStatus* printOrderStatus=new PrintOrderStatus(order_id);
+                printOrderStatus->act(*this);
 
             }
             else if(action=="customerStatus"){
                 int customer_id=std::stoi(tokens[1]);
-                PrintCustomerStatus printCustomerStatus(customer_id);
-                printCustomerStatus.act(*this);
+                PrintCustomerStatus* printCustomerStatus=new PrintCustomerStatus(customer_id);
+                printCustomerStatus->act(*this);
             }
             else if(action=="volunteerStatus"){
                 int volunteer_id=std::stoi(tokens[1]);
-                PrintVolunteerStatus printVolunteerStatus(volunteer_id);
-                printVolunteerStatus.act(*this);
+                PrintVolunteerStatus* printVolunteerStatus=new PrintVolunteerStatus(volunteer_id);
+                printVolunteerStatus->act(*this);
             }
             else if(action=="log"){
-                PrintActionsLog printActionsLogs;
-                printActionsLogs.act(*this);
+                PrintActionsLog* printActionsLogs=new PrintActionsLog();
+                printActionsLogs->act(*this);
             }
             else if(action=="close"){
-                Close close;
-                close.act(*this);
+                Close* close=new Close();
+                close->act(*this);
             }
             else if(action=="backup"){
-                BackupWareHouse BackupWareHouse;
-                BackupWareHouse.act(*this);
+                BackupWareHouse* backupWareHouse=new BackupWareHouse();
+                backupWareHouse->act(*this);
             }
             else if(action=="restore"){
-                RestoreWareHouse RestoreWareHouse;
-                RestoreWareHouse.act(*this);
+                RestoreWareHouse* restoreWareHouse=new RestoreWareHouse();
+                restoreWareHouse->act(*this);
             }
 
         }
@@ -153,7 +153,7 @@ void WareHouse::start()
 
 const vector<BaseAction*> &WareHouse::getActions() const
 {
-    return actionsLog;
+    return this->actionsLog;
 }
 
 //make sure we only need to add to the pendingOrders vector - i think yes
