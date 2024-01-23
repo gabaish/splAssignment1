@@ -6,7 +6,7 @@ customerId(id){}
 
 void AddOrder:: act(WareHouse &wareHouse){ 
     // checking if the customerId is in the correct range 
-    if(customerId>=0 && customerId<=wareHouse.getCustomerCounter()){
+    if(customerId>=0 && customerId<wareHouse.getCustomerCounter()){
         Customer& customer = wareHouse.getCustomer(customerId);
         if(customer.canMakeOrder()){
             Order* order = new Order(wareHouse.getOrderCounter(),customerId,customer.getCustomerDistance());

@@ -11,7 +11,7 @@ void SimulateStep::act(WareHouse& warehouse) {
                 // looking for an available collector
                 for(Volunteer* volunteer : warehouse.getVolunteers()) {
                     if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
-                    && volunteer->canTakeOrder(*order)){
+                    && volunteer->getId()!=-1 && volunteer->canTakeOrder(*order)){
                         volunteer->acceptOrder(*order);
                         order->setCollectorId(volunteer->getId());
                         order->setStatus(OrderStatus::COLLECTING);
