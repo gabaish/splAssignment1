@@ -195,20 +195,20 @@ Volunteer &WareHouse::getVolunteer(int volunteerId) const{
     return getVolunteer(-1);
 }
 //inside the print order status
-Order &WareHouse::getOrder(int orderId) const{
+Order& WareHouse::getOrder(int orderId) const{
     // we only get here after we cmade sure that this orderId exists in the warehouse
     Order* returnOrder = nullptr;
-    for(const auto& pending_order : pendingOrders)
+    for(Order* pending_order : pendingOrders)
     {
         if(pending_order->getId()==orderId)
             returnOrder= pending_order;
     }
-    for(const auto& inProcess_order : inProcessOrders)
+    for(Order* inProcess_order : inProcessOrders)
     {
         if(inProcess_order->getId()==orderId)
             returnOrder= inProcess_order;
     }
-    for(const auto& completed_order : completedOrders)
+    for(Order* completed_order : completedOrders)
     {
         if(completed_order->getId()==orderId)
             returnOrder= completed_order; 
@@ -295,12 +295,13 @@ void WareHouse::moveOrderFromPendingToInProcess(Order* order){
 
 void WareHouse::moveOrderFromInProcessToPending(Order* order){
     // maybe it should get const ref? and not pinter..? but its a vector of pointers
-    // remove the order from pendingOrders
+    // remove the order from inProcessOrders
     auto it = std::remove(this->inProcessOrders.begin(), this->inProcessOrders.end(), order);
     this->inProcessOrders.erase(it, inProcessOrders.end());
     // I really really hope it works - its from chatGPT
 
-    // add the order to inProcessOrders
+
+    // add the order to pendingOrders
     this->pendingOrders.push_back(order);
 
 }

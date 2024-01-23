@@ -47,14 +47,13 @@ void SimulateStep::act(WareHouse& warehouse) {
                     
                     // collectors should push their order to pendingOrders
                     if((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)){
-                        Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
+                        Order& orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
                         warehouse.moveOrderFromInProcessToPending(&orderToAdd);
                         volunteer->setCompletedOrderId(NO_ORDER);
-                        
                     }
                     // drivers should push their order to completedOrders
                     if((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)){
-                        Order orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
+                        Order& orderToAdd = warehouse.getOrder(volunteer->getCompletedOrderId());
                         warehouse.moveOrderFromInProcessToCompleted(&orderToAdd);
                         volunteer->setCompletedOrderId(NO_ORDER);
                         orderToAdd.setStatus(OrderStatus::COMPLETED);
