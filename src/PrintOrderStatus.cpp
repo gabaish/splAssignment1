@@ -6,7 +6,7 @@ orderId(id){}
 
 void PrintOrderStatus:: act(WareHouse &wareHouse){
     // checking if the orderId is in the correct range 
-    if(orderId>=0 && orderId<=wareHouse.getOrderCounter()){
+    if(orderId>=0 && orderId<wareHouse.getOrderCounter()){
         Order& order = wareHouse.getOrder(orderId);
         cout << "OrderId: " << order.getId() << endl;
         cout << "OrderStatus: " << order.getStatusString() << endl;
