@@ -4,7 +4,7 @@
 AddOrder::AddOrder(int id):
 customerId(id){}
 
-void AddOrder:: act(WareHouse &wareHouse){
+void AddOrder:: act(WareHouse &wareHouse){ 
     // checking if the customerId is in the correct range 
     if(customerId>=0 && customerId<=wareHouse.getCustomerCounter()){
         Customer& customer = wareHouse.getCustomer(customerId);
