@@ -11,8 +11,8 @@ void PrintOrderStatus:: act(WareHouse &wareHouse){
         cout << "OrderId: " << order.getId() << endl;
         cout << "OrderStatus: " << order.getStatusString() << endl;
         cout << "CustomerId: " << order.getCustomerId() << endl;
-        cout << "Collector: " << order.getCollectorId() << endl;
-        cout << "Driver: " << order.getDriverId() << endl;
+        cout << "Collector: " << ((order.getCollectorId()!=-1) ? to_string(order.getCollectorId()) : ("None")) << endl;
+        cout << "Driver: " << ((order.getDriverId()!=-1) ? to_string(order.getDriverId()) : ("None")) << endl;
 
         this->complete();
     }
