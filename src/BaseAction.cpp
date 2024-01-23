@@ -2,11 +2,6 @@
 
 BaseAction::BaseAction():
 errorMsg(""),status(ActionStatus::COMPLETED){
- //what should i initialize it with???????/
- //
- //
-
- /// pay attention
 }
 
 ActionStatus BaseAction:: getStatus() const{

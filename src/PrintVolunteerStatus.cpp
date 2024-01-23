@@ -13,26 +13,36 @@ void PrintVolunteerStatus::act(WareHouse &wareHouse){
         //getActiveOrderID returns NO_ORDER, but they want none, TOCHECK
         cout << "OrderID: " << current_volunteer.getActiveOrderId() << endl;
         VolunteerType type=current_volunteer.getVolunteerType();
+
+        //also test this instead of the switch():
+        //current_volunteer.toString();
+
+
         switch(type){
             case VolunteerType::Collector: {
-                CollectorVolunteer *collectorVolunteer = dynamic_cast<CollectorVolunteer*>(&current_volunteer);
-                cout << "TimeLeft: " << collectorVolunteer->getTimeLeft() << endl;
-                cout << "OrdersLeft: No Limit" << endl;
+                current_volunteer.toString();
+                //when testing, check if we need this, or we can count on the polymorphism like above
+                //CollectorVolunteer *collectorVolunteer = dynamic_cast<CollectorVolunteer*>(&current_volunteer);
+                //collectorVolunteer->toString();
             }
             case VolunteerType::LimitedCollector: {
-                LimitedCollectorVolunteer *limitedCollectorVolunteer = dynamic_cast<LimitedCollectorVolunteer*>(&current_volunteer);
+                current_volunteer.toString();
+
+                /*LimitedCollectorVolunteer *limitedCollectorVolunteer = dynamic_cast<LimitedCollectorVolunteer*>(&current_volunteer);
                 cout << "TimeLeft: " << limitedCollectorVolunteer->getTimeLeft() << endl;
-                cout << "OrdersLeft: " << limitedCollectorVolunteer->getNumOrdersLeft() << endl;
+                cout << "OrdersLeft: " << limitedCollectorVolunteer->getNumOrdersLeft() << endl;*/
             }
             case VolunteerType::Driver: {
-                DriverVolunteer *driverVolunteer = dynamic_cast<DriverVolunteer*>(&current_volunteer);
+                current_volunteer.toString();
+                /*DriverVolunteer *driverVolunteer = dynamic_cast<DriverVolunteer*>(&current_volunteer);
                 cout << "TimeLeft: " << driverVolunteer->getDistanceLeft() << endl;
-                cout << "OrdersLeft: No Limit" << endl;
+                cout << "OrdersLeft: No Limit" << endl;*/
             }
             case VolunteerType::LimitedDriver: {
-                LimitedDriverVolunteer *limitedDriverVolunteer = dynamic_cast<LimitedDriverVolunteer*>(&current_volunteer);
+                current_volunteer.toString();
+                /*LimitedDriverVolunteer *limitedDriverVolunteer = dynamic_cast<LimitedDriverVolunteer*>(&current_volunteer);
                 cout << "TimeLeft: " << limitedDriverVolunteer->getDistanceLeft() << endl;
-                cout << "OrdersLeft: " << limitedDriverVolunteer->getNumOrdersLeft() <<endl;
+                cout << "OrdersLeft: " << limitedDriverVolunteer->getNumOrdersLeft() <<endl;*/
             }
         }
 

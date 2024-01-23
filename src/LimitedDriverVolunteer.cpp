@@ -36,6 +36,6 @@ void LimitedDriverVolunteer:: acceptOrder(const Order& order){
 }
 
 string LimitedDriverVolunteer:: toString() const{
-
-    //implement once I know what to print
+        string limitedDriverVolunteerStatus= "TimeLeft: " +std::to_string(this->getDistanceLeft())+ "\n"
+                                    "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
 }

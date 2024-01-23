@@ -37,7 +37,7 @@ int LimitedCollectorVolunteer:: getNumOrdersLeft() const{
     return this->ordersLeft;
 }
 
-string CollectorVolunteer:: toString() const{
-
-    //implement once I know what to print
+string LimitedCollectorVolunteer:: toString() const{
+    string limitedCollectorVolunteerStatus= "TimeLeft: " +std::to_string(this->getTimeLeft())+ "\n"
+                                    "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
 }

@@ -63,6 +63,6 @@ void DriverVolunteer:: step(){
 
 
 string DriverVolunteer:: toString() const{
-
-    //implement once I know what to print
+    string driverVolunteerStatus= "TimeLeft: " +std::to_string(this->getDistanceLeft())+ "\n"
+                                    "OrdersLeft: No Limit \n";
 }
