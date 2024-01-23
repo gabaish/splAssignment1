@@ -39,8 +39,8 @@ void PrintVolunteerStatus::act(WareHouse &wareHouse){
         this->complete();
     }
     else{
-        cout << "Volunteer doesn't exist" << endl;
         this->error("Volunteer doesn't exist");
+        cout << this->getErrorMsg() << endl;
     }
 
     wareHouse.addAction(this);

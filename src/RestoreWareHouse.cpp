@@ -14,8 +14,9 @@ void RestoreWareHouse:: act(WareHouse &wareHouse){
     }
 
     else{
-        cout << "No backup available" << endl;
         this->error("No backup available");
+        cout << this->getErrorMsg() << endl;
+
     }
 
     wareHouse.addAction(this);

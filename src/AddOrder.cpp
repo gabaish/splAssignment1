@@ -1,4 +1,5 @@
 #include "../include/Action.h"
+#include <iostream>
 
 AddOrder::AddOrder(int id):
 customerId(id){}
@@ -15,6 +16,7 @@ void AddOrder:: act(WareHouse &wareHouse){
     // if this customer ID does not exist in the warehouse - return an error
     else {
         this->error("Cannot place this order");
+        cout << this->getErrorMsg() << endl;
     }
     wareHouse.addAction(this);
 }
