@@ -8,10 +8,17 @@ void AddOrder:: act(WareHouse &wareHouse){
     // checking if the customerId is in the correct range 
     if(customerId>=0 && customerId<=wareHouse.getCustomerCounter()){
         Customer& customer = wareHouse.getCustomer(customerId);
-        Order* order = new Order(wareHouse.getOrderCounter(),customerId,customer.getCustomerDistance());
-        wareHouse.addOrder(order);
-        customer.addOrder(order->getId());
-        this->complete();
+        if(customer.canMakeOrder()){
+            Order* order = new Order(wareHouse.getOrderCounter(),customerId,customer.getCustomerDistance());
+            wareHouse.addOrder(order);
+            customer.addOrder(order->getId());
+            this->complete();
+        } else {
+            // customer reached his maxOrders 
+            this->error("Cannot place this order");
+            cout << this->getErrorMsg() << endl;
+        }
+        
     } 
     // if this customer ID does not exist in the warehouse - return an error
     else {
