@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "make", //calls the Makefile
+            "type": "shell", // the task would run in the shell
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "presentation": {
+                "reveal": "always"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true   
+            },
+            "args": ["src/*.cpp"]
+        }
+    ]
+}

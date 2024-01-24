@@ -8,7 +8,7 @@ BIN_DIR = bin
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-EXECUTABLE = $(BIN_DIR)/warehouse
+EXECUTABLE = $(BIN_DIR)/warehouse.o
 
 all: $(EXECUTABLE)
 
