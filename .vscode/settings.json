@@ -1,3 +1,6 @@
 {
-    "editor.cursorBlinking": "smooth"
+    "editor.cursorBlinking": "smooth",
+    "files.associations": {
+        "new": "cpp"
+    }
 }

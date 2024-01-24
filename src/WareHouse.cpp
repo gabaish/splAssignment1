@@ -147,7 +147,7 @@ void WareHouse::start()
         }
     }
 
-    delete this;
+    //delete this;
 
 }
 
@@ -337,22 +337,22 @@ int WareHouse::getOrderCounter() const{
 // destructor
 //check if need to delete something else
 WareHouse:: ~WareHouse() {
-    for(BaseAction* action: actionsLog){
+    for(BaseAction* action: this->actionsLog){
         delete action;
     }
-    for (Volunteer* volunteer : volunteers) {
+    for (Volunteer* volunteer : this->volunteers) {
         delete volunteer;
     }
-    for (Order* order : pendingOrders) {
+    for (Order* order : this->pendingOrders) {
         delete order;
     }
-    for (Order* order : inProcessOrders) {
+    for (Order* order : this->inProcessOrders) {
         delete order;
     }
-    for (Order* order : completedOrders) {
+    for (Order* order : this->completedOrders) {
         delete order;
     }
-    for (Customer* customer : customers) {
+    for (Customer* customer : this->customers) {
         delete customer;
     }
 }
