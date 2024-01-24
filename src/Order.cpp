@@ -14,19 +14,14 @@ int Order::getCustomerId() const{
 
 void Order:: setStatus(OrderStatus status){
     this->status=status;
-    //hopeully this syntax is a valid one 
 }
 
 void Order:: setCollectorId(int collectorId){
     this->collectorId= collectorId;
-    //hopeully this syntax is a valid one 
-
 }
 
 void Order:: setDriverId(int driverId){
-    this->driverId= driverId;
-    //hopeully this syntax is a valid one 
-
+    this->driverId= driverId; 
 }
 
 int Order::getCollectorId() const{
@@ -61,13 +56,26 @@ string Order:: getStatusString() const {
     string returnString = "";
     switch(this->status){
         case(OrderStatus::PENDING):
-            returnString.append("PENDING");    
+        {
+            returnString.append("PENDING");
+            break;  
+        } 
         case(OrderStatus::COLLECTING):
+        {
             returnString.append("COLLECTING"); 
+            break;
+        }   
         case(OrderStatus::DELIVERING):
-            returnString.append("DELIVERING");   
+        {
+             returnString.append("DELIVERING");  
+             break;
+        }
         case(OrderStatus::COMPLETED):
-            returnString.append("COMPLETED");   
+        {
+            returnString.append("COMPLETED"); 
+            break;
+        }
+    
     }
     return returnString;
 }
