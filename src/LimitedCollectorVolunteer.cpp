@@ -38,8 +38,12 @@ int LimitedCollectorVolunteer:: getNumOrdersLeft() const{
 }
 
 string LimitedCollectorVolunteer:: toString() const{
-    string limitedCollectorVolunteerStatus= "TimeLeft: " +std::to_string(this->getTimeLeft())+ "\n"
-                                    "OrdersLeft: "+std::to_string(this->getNumOrdersLeft())+ "\n";
+    string timeLeft=std::to_string(this->getTimeLeft());
+    if(timeLeft=="0"){
+        timeLeft="None";
+    }
+    string limitedCollectorVolunteerStatus= "TimeLeft: " +timeLeft+ "\n"
+                                    "OrdersLeft: "+std::to_string(this->getNumOrdersLeft());
     return limitedCollectorVolunteerStatus;
 }
 

@@ -4,7 +4,7 @@
 PrintCustomerStatus::PrintCustomerStatus(int customerId) : customerId(customerId){}
 
 void PrintCustomerStatus::act(WareHouse &wareHouse) {
-    if(customerId>=0 && customerId<= wareHouse.getCustomerCounter()){
+    if(customerId>=0 && (customerId< wareHouse.getCustomerCounter())){
         cout << "CustomerID: " << customerId << endl;
 
         Customer& current_cutomer=wareHouse.getCustomer(customerId);
