@@ -2,7 +2,7 @@ CC = g++
 CFLAGS = -g -Wall -Weffc++ -std=c++11 -Iinclude
 
 SRC_DIR = src
-OBJ_DIR = bin/obj
+OBJ_DIR = bin
 BIN_DIR = bin
 
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
