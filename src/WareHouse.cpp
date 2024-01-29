@@ -326,70 +326,51 @@ int WareHouse::getOrderCounter() const{
     return this->orderCounter;
 }
 
-void WareHouse:: firstSchemastep(){
-    //first step in the schema - move orders from pendingOrders to relevant volunteers
-    for(Order* order : this->pendingOrders){
-        if(order->getStatus()==OrderStatus::PENDING){
-            // looking for an available collector
-            for(Volunteer* volunteer : this->volunteers) {
-                if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
-                && volunteer->getId()!=-1 && volunteer->canTakeOrder(*order)){
+void WareHouse::firstSchemastep() {
+    // Create a vector to store orders that need to be moved
+    std::vector<Order*> ordersToMove;
+
+    // First step in the schema - move orders from pendingOrders to relevant volunteers
+    for (Order* order : this->pendingOrders) {
+        if (order->getStatus() == OrderStatus::PENDING) {
+            // Looking for an available collector
+            for (Volunteer* volunteer : this->volunteers) {
+                if (((volunteer->getVolunteerType() == VolunteerType::Collector) || 
+                    (volunteer->getVolunteerType() == VolunteerType::LimitedCollector)) &&
+                    volunteer->getId() != -1 && volunteer->canTakeOrder(*order)) {
+                    
                     volunteer->acceptOrder(*order);
                     order->setCollectorId(volunteer->getId());
                     order->setStatus(OrderStatus::COLLECTING);
-                    this->moveOrderFromPendingToInProcess(order);
+                    // Add the order to the vector for moving later
+                    ordersToMove.push_back(order);
                     break;
                 }
             }
-        }
-    }
-
-    for(Order* order : this->pendingOrders){
-        if (order->getStatus()==OrderStatus::COLLECTING){
-            // looking for an available driver
-            for(Volunteer* volunteer : this->volunteers){
-                if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
-                && volunteer->canTakeOrder(*order)){
+        } else if (order->getStatus() == OrderStatus::COLLECTING) {
+            // Looking for an available driver
+            for (Volunteer* volunteer : this->volunteers) {
+                if (((volunteer->getVolunteerType() == VolunteerType::Driver) ||
+                    (volunteer->getVolunteerType() == VolunteerType::LimitedDriver)) &&
+                    volunteer->canTakeOrder(*order)) {
+                    
                     volunteer->acceptOrder(*order);
                     order->setDriverId(volunteer->getId());
                     order->setStatus(OrderStatus::DELIVERING);
-                    this->moveOrderFromPendingToInProcess(order);
+                    // Add the order to the vector for moving later
+                    ordersToMove.push_back(order);
                     break;
                 }
             }
         }
     }
 
-
-    // for(Order* order : this->pendingOrders){
-    //     if(order->getStatus()==OrderStatus::PENDING){
-    //         // looking for an available collector
-    //         for(Volunteer* volunteer : this->volunteers) {
-    //             if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
-    //             && volunteer->getId()!=-1 && volunteer->canTakeOrder(*order)){
-    //                 volunteer->acceptOrder(*order);
-    //                 order->setCollectorId(volunteer->getId());
-    //                 order->setStatus(OrderStatus::COLLECTING);
-    //                 this->moveOrderFromPendingToInProcess(order);
-    //                 break;
-    //             }
-    //         }       
-    //     } else if (order->getStatus()==OrderStatus::COLLECTING){
-    //         // looking for an available driver
-    //         for(Volunteer* volunteer : this->volunteers){
-    //             if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
-    //             && volunteer->canTakeOrder(*order)){
-    //                 volunteer->acceptOrder(*order);
-    //                 order->setDriverId(volunteer->getId());
-    //                 order->setStatus(OrderStatus::DELIVERING);
-    //                 this->moveOrderFromPendingToInProcess(order);
-    //                 break;
-    //             }
-    //         }
-    //     }
-
-    // }
+    // Move orders from pendingOrders to inProcessOrders after iterating through pendingOrders
+    for (Order* orderToMove : ordersToMove) {
+        this->moveOrderFromPendingToInProcess(orderToMove);
+    }
 }
+
 
 void WareHouse:: secondAndThirdSchemaStep(){
     // second step in the schema - perform a step in the simulation
