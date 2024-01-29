@@ -37,7 +37,6 @@ class SoldierCustomer: public Customer {
     public:
         SoldierCustomer(int id, const string &name, int locationDistance, int maxOrders);
         SoldierCustomer *clone() const override;
-        virtual ~SoldierCustomer() override;
     
     private:
         
@@ -47,7 +46,6 @@ class CivilianCustomer: public Customer {
     public:
         CivilianCustomer(int id, const string &name, int locationDistance, int maxOrders);
         CivilianCustomer *clone() const override;
-        virtual ~CivilianCustomer() override;
     
     private:
         

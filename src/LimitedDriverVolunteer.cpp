@@ -46,5 +46,3 @@ string LimitedDriverVolunteer:: toString() const{
                                 "OrdersLeft: "+std::to_string(this->getNumOrdersLeft());
     return limitedDriverVolunteerStatus;
 }
-
-LimitedDriverVolunteer:: ~LimitedDriverVolunteer() = default;

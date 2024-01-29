@@ -46,5 +46,3 @@ string LimitedCollectorVolunteer:: toString() const{
                                     "OrdersLeft: "+std::to_string(this->getNumOrdersLeft());
     return limitedCollectorVolunteerStatus;
 }
-
-LimitedCollectorVolunteer:: ~LimitedCollectorVolunteer() = default;

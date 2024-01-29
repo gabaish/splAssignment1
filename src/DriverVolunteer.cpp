@@ -72,4 +72,3 @@ string DriverVolunteer:: toString() const{
     return driverVolunteerStatus;
 }
 
-DriverVolunteer:: ~DriverVolunteer() = default;

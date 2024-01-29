@@ -62,5 +62,3 @@ string CollectorVolunteer:: toString() const{
                                     "OrdersLeft: No Limit";
     return collectorVolunteerStatus;
 }
-
-CollectorVolunteer:: ~CollectorVolunteer() = default;

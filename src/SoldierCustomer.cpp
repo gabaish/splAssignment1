@@ -7,5 +7,3 @@ SoldierCustomer::SoldierCustomer(int id, const string &name, int locationDistanc
 SoldierCustomer* SoldierCustomer:: clone() const{
     return new SoldierCustomer(*this);
 }
-
-SoldierCustomer:: ~SoldierCustomer() = default;
