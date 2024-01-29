@@ -217,14 +217,6 @@ Order& WareHouse::getOrder(int orderId) const{
 
 }
 
-const vector<Volunteer*>& WareHouse:: getVolunteers() const{
-    return this->volunteers;
-}
-
-const vector<Order*>& WareHouse::getPendingOrders() const{
-    return this->pendingOrders;
-}
-
 
 void WareHouse::close() 
 {
@@ -332,6 +324,79 @@ int WareHouse::getVolunteerCounter() const{
 
 int WareHouse::getOrderCounter() const{
     return this->orderCounter;
+}
+
+void WareHouse:: firstSchemastep(){
+    //first step in the schema - move orders from pendingOrders to relevant volunteers
+    for(Order* order : this->pendingOrders){
+        if(order->getStatus()==OrderStatus::PENDING){
+            // looking for an available collector
+            for(Volunteer* volunteer : this->volunteers) {
+                if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
+                && volunteer->getId()!=-1 && volunteer->canTakeOrder(*order)){
+                    volunteer->acceptOrder(*order);
+                    order->setCollectorId(volunteer->getId());
+                    order->setStatus(OrderStatus::COLLECTING);
+                    this->moveOrderFromPendingToInProcess(order);
+                    break;
+                }
+            }       
+        } else if (order->getStatus()==OrderStatus::COLLECTING){
+            // looking for an available driver
+            for(Volunteer* volunteer : this->volunteers){
+                if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
+                && volunteer->canTakeOrder(*order)){
+                    volunteer->acceptOrder(*order);
+                    order->setDriverId(volunteer->getId());
+                    order->setStatus(OrderStatus::DELIVERING);
+                    this->moveOrderFromPendingToInProcess(order);
+                    break;
+                }
+            }
+        }
+
+    }
+}
+
+void WareHouse:: secondAndThirdSchemaStep(){
+    // second step in the schema - perform a step in the simulation
+    // third step in the schema - once performing a step - check if they are done processing
+    for(Volunteer* volunteer : this->volunteers){
+        // if the volunteer is curentlly working on something - we should simulate a step
+        if(volunteer->isBusy())
+        {
+            volunteer->step();
+            // if after the step the volunteer is done processing - the activeOrderId shold be NO_ORDER
+            if(volunteer->getActiveOrderId()==NO_ORDER){
+                
+                // collectors should push their order to pendingOrders
+                if((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)){
+                    Order& orderToAdd = this->getOrder(volunteer->getCompletedOrderId());
+                    this->moveOrderFromInProcessToPending(&orderToAdd);
+                    volunteer->setCompletedOrderId(NO_ORDER);
+                }
+                // drivers should push their order to completedOrders
+                if((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)){
+                    Order& orderToAdd = this->getOrder(volunteer->getCompletedOrderId());
+                    this->moveOrderFromInProcessToCompleted(&orderToAdd);
+                    volunteer->setCompletedOrderId(NO_ORDER);
+                    orderToAdd.setStatus(OrderStatus::COMPLETED);
+                }
+            }
+        }
+    }
+}
+
+void WareHouse:: fourthSchemaStep(){
+    // fourth step in the schema - delete volunteers that had maxed out and finished their last order
+    for(Volunteer* volunteer : this->volunteers){
+        if(!(volunteer->hasOrdersLeft()) && !volunteer->isBusy()){
+            this->removeVolunteer(volunteer);
+
+            delete volunteer;
+        }
+
+    }
 }
 
 // destructor

@@ -25,8 +25,6 @@ class WareHouse {
         Customer &getCustomer(int customerId) const;
         Volunteer &getVolunteer(int volunteerId) const;
         Order &getOrder(int orderId) const;
-        const vector<Volunteer*>& getVolunteers() const;
-        const vector<Order*>& getPendingOrders() const;
         void close();
         void open();
         void addCustomer(Customer* customer);
@@ -38,6 +36,9 @@ class WareHouse {
         int getCustomerCounter() const;
         int getVolunteerCounter() const;
         int getOrderCounter() const;
+        void firstSchemastep();
+        void secondAndThirdSchemaStep();
+        void fourthSchemaStep();
         ~WareHouse();
         WareHouse(const WareHouse &other);
         WareHouse &operator=(const WareHouse &other);
