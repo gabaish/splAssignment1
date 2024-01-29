@@ -340,8 +340,12 @@ void WareHouse:: firstSchemastep(){
                     this->moveOrderFromPendingToInProcess(order);
                     break;
                 }
-            }       
-        } else if (order->getStatus()==OrderStatus::COLLECTING){
+            }
+        }
+    }
+
+    for(Order* order : this->pendingOrders){
+        if (order->getStatus()==OrderStatus::COLLECTING){
             // looking for an available driver
             for(Volunteer* volunteer : this->volunteers){
                 if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
@@ -354,8 +358,37 @@ void WareHouse:: firstSchemastep(){
                 }
             }
         }
-
     }
+
+
+    // for(Order* order : this->pendingOrders){
+    //     if(order->getStatus()==OrderStatus::PENDING){
+    //         // looking for an available collector
+    //         for(Volunteer* volunteer : this->volunteers) {
+    //             if(((volunteer->getVolunteerType()== VolunteerType::Collector)||(volunteer->getVolunteerType()== VolunteerType::LimitedCollector)) 
+    //             && volunteer->getId()!=-1 && volunteer->canTakeOrder(*order)){
+    //                 volunteer->acceptOrder(*order);
+    //                 order->setCollectorId(volunteer->getId());
+    //                 order->setStatus(OrderStatus::COLLECTING);
+    //                 this->moveOrderFromPendingToInProcess(order);
+    //                 break;
+    //             }
+    //         }       
+    //     } else if (order->getStatus()==OrderStatus::COLLECTING){
+    //         // looking for an available driver
+    //         for(Volunteer* volunteer : this->volunteers){
+    //             if(((volunteer->getVolunteerType()== VolunteerType::Driver)||(volunteer->getVolunteerType()== VolunteerType::LimitedDriver)) 
+    //             && volunteer->canTakeOrder(*order)){
+    //                 volunteer->acceptOrder(*order);
+    //                 order->setDriverId(volunteer->getId());
+    //                 order->setStatus(OrderStatus::DELIVERING);
+    //                 this->moveOrderFromPendingToInProcess(order);
+    //                 break;
+    //             }
+    //         }
+    //     }
+
+    // }
 }
 
 void WareHouse:: secondAndThirdSchemaStep(){
