@@ -8,9 +8,9 @@ void PrintOrderStatus:: act(WareHouse &wareHouse){
     // checking if the orderId is in the correct range 
     if(orderId>=0 && orderId<wareHouse.getOrderCounter()){
         Order& order = wareHouse.getOrder(orderId);
-        cout << "OrderId: " << order.getId() << endl;
+        cout << "OrderID: " << order.getId() << endl;
         cout << "OrderStatus: " << order.getStatusString() << endl;
-        cout << "CustomerId: " << order.getCustomerId() << endl;
+        cout << "CustomerID: " << order.getCustomerId() << endl;
         string collectorId=std::to_string(order.getCollectorId());
         if(collectorId=="-1"){
             collectorId="None";
