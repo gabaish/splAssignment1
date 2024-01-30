@@ -402,14 +402,22 @@ void WareHouse:: secondAndThirdSchemaStep(){
 }
 
 void WareHouse:: fourthSchemaStep(){
+    // Create a vector to store orders that need to be moved
+    std::vector<Volunteer*> volunteersToDelete;
+
     // fourth step in the schema - delete volunteers that had maxed out and finished their last order
     for(Volunteer* volunteer : this->volunteers){
         if(!(volunteer->hasOrdersLeft()) && !volunteer->isBusy()){
-            this->removeVolunteer(volunteer);
+            //this->removeVolunteer(volunteer);
+            volunteersToDelete.push_back(volunteer);
 
-            delete volunteer;
+            //delete volunteer;
         }
 
+    }
+    for(Volunteer* volunteer : volunteersToDelete){
+        this->removeVolunteer(volunteer);
+        delete volunteer;
     }
 }
 

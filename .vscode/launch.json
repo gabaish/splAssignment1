@@ -9,8 +9,8 @@
             "name": "Debug",
             "type": "cppdbg", //the debuger extension 
             "request": "launch", //launch a debugging session
-            "program": "${workspaceFolder}/bin/warehouse.o", //path to the compiled executable file 
-            "args": ["${workspaceFolder}/bin/configFileExample.txt"], //add config file
+            "program": "${workspaceFolder}/bin/warehouse", //path to the compiled executable file 
+            "args": ["${workspaceFolder}/bin/rest/configFileExample.txt"], //add config file
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
