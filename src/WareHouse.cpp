@@ -563,7 +563,12 @@ WareHouse::WareHouse(WareHouse &&other) noexcept : isOpen(other.isOpen), actions
     other.volunteerCounter=0;
     other.orderCounter=0;
 
-    //do we need to delete the vectors?
+    other.actionsLog.clear();
+    other.volunteers.clear();
+    other.pendingOrders.clear();
+    other.inProcessOrders.clear();
+    other.completedOrders.clear();
+    other.customers.clear();
 }
 
 
@@ -625,10 +630,16 @@ WareHouse& WareHouse::operator=(WareHouse &&other) noexcept{
        orderCounter = other.orderCounter;
 
        //setting the other's to valid state:
-       other.isOpen=false;
-       other.customerCounter=0;
+        other.isOpen=false;
+        other.customerCounter=0;
         other.volunteerCounter=0;
         other.orderCounter=0;
+        other.actionsLog.clear();
+        other.volunteers.clear();
+        other.pendingOrders.clear();
+        other.inProcessOrders.clear();
+        other.completedOrders.clear();
+        other.customers.clear();
        
     }
     return *this;
