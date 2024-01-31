@@ -25,7 +25,7 @@ void PrintCustomerStatus::act(WareHouse &wareHouse) {
     //error if the customerId doesn't exists:
     else{
         this->error("Customer doesn't exist");
-        cout << this->getErrorMsg() << endl;
+        cout << "Error: " << this->getErrorMsg() << endl;
     }
     wareHouse.addAction(this);
 

@@ -27,7 +27,7 @@ void PrintOrderStatus:: act(WareHouse &wareHouse){
     // if this orderId does not exist in the warehouse - return an error
     else{
         this->error("Order doesn't exist");
-        cout << this->getErrorMsg() << endl;
+        cout << "Error: " << this->getErrorMsg() << endl;
     }
 
     wareHouse.addAction(this);

@@ -26,7 +26,7 @@ void PrintVolunteerStatus::act(WareHouse &wareHouse){
     }
     else{
         this->error("Volunteer doesn't exist");
-        cout << this->getErrorMsg() << endl;
+        cout << "Error: " << this->getErrorMsg() << endl;
     }
 
     wareHouse.addAction(this);

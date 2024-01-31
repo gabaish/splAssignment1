@@ -16,14 +16,14 @@ void AddOrder:: act(WareHouse &wareHouse){
         } else {
             // customer reached his maxOrders 
             this->error("Cannot place this order");
-            cout << this->getErrorMsg() << endl;
+            cout << "Error: " << this->getErrorMsg() << endl;
         }
         
     } 
     // if this customer ID does not exist in the warehouse - return an error
     else {
         this->error("Cannot place this order");
-        cout << this->getErrorMsg() << endl;
+        cout << "Error: " << this->getErrorMsg() << endl;
     }
     wareHouse.addAction(this);
 }
