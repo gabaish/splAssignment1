@@ -16,10 +16,6 @@ void Close:: act(WareHouse &wareHouse){
 string Close:: toString() const{
     string returnString = "close ";
     returnString.append(this->getStatusString());
-    if(this->getStatus() ==  ActionStatus::ERROR){
-        returnString.append(" ");
-        returnString.append(this->getErrorMsg());
-    }
 
     return returnString;
 

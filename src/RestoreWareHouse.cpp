@@ -30,10 +30,7 @@ string RestoreWareHouse:: toString() const{
     string returnString = "restore";
     returnString.append(" ");
     returnString.append(this->getStatusString());
-    if(this->getStatus() ==  ActionStatus::ERROR){
-        returnString.append(" ");
-        returnString.append(this->getErrorMsg());
-    }
+    
     return returnString;
 }
 

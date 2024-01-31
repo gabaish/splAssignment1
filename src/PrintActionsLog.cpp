@@ -20,10 +20,6 @@ PrintActionsLog* PrintActionsLog:: clone() const{
 std::string PrintActionsLog:: toString() const{
     string returnString = "log ";
     returnString.append(this->getStatusString());
-    if(this->getStatus() ==  ActionStatus::ERROR){
-        returnString.append(" ");
-        returnString.append(this->getErrorMsg());
-    }
 
     return returnString;
 

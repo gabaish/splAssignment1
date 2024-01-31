@@ -19,14 +19,10 @@ void SimulateStep::act(WareHouse& warehouse) {
 }
 
 std::string SimulateStep:: toString() const{
-    string returnString = "step ";
+    string returnString = "simulateStep ";
     returnString.append(std::to_string(this->numOfSteps));
     returnString.append(" ");
     returnString.append(this->getStatusString());
-    if(this->getStatus() ==  ActionStatus::ERROR){
-        returnString.append(" ");
-        returnString.append(this->getErrorMsg());
-    }
 
     return returnString;
 

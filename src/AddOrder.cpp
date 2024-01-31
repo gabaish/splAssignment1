@@ -38,10 +38,6 @@ std::string AddOrder:: toString() const{
     returnString.append(std::to_string(this->customerId));
     returnString.append(" ");
     returnString.append(this->getStatusString());
-    if(this->getStatus() ==  ActionStatus::ERROR){
-        returnString.append(" ");
-        returnString.append(this->getErrorMsg());
-    }
 
     return returnString;
 }
